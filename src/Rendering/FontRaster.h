@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <map>
 #include "IFontRaster.h"
 #include "freetype.h"
 

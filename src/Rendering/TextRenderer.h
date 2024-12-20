@@ -1,13 +1,9 @@
 #pragma once
 #include <map>
-#include <functional>
 #include <unordered_set>
 #include <rendell/rendell.h>
 #include <glm/glm.hpp>
-#include "IFontRaster.h"
-#include "GlyphBuffer.h"
 #include "TextBatch.h"
-#include "TextBuffer.h"
 #include "RasteredFontStorage.h"
 
 class TextRenderer

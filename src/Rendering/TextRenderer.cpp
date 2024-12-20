@@ -2,8 +2,7 @@
 #include <fstream>
 #include <memory>
 #include <glm/gtc/matrix_transform.hpp>
-#include <algorithm>
-#include "FontRaster.h"
+#include "IFontRaster.h"
 #include "RasteredFontStorageManager.h"
 
 #define CHAR_RANGE_SIZE 200
