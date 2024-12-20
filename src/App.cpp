@@ -94,25 +94,24 @@ bool App::initRendell()
 
 bool App::initTextRenderer()
 {
-	IFontRaster *raster = new FontRaster("../res/Fonts/mononoki/mononoki-Regular.ttf");
-	if (!raster->isInitialized())
-	{
-		std::cout << "ERROR: FontRaster initializion failed" << std::endl;
-		return false;
-	}
-	raster->setFontSize(glm::ivec2(FONT_WIDTH, FONT_HEIGHT));
-	_textRenderer.reset(new TextRenderer(std::shared_ptr<IFontRaster>(raster)));
+	_textRenderer.reset(new TextRenderer);
 	return _textRenderer->isInitialized();
 }
 
 void App::setupTextRenderer()
 {
+	//Matrices
 	Matrices matrices;
 	matrices.projectMat = glm::ortho(0.0f, 600.0f, 0.0f, 400.0f, 0.1f, 100.0f);
 	matrices.worldMat = glm::translate(glm::mat4(1.0), glm::vec3(10.0, 10.0, 0.0));
 	glm::mat4 matrix = matrices.projectMat * matrices.viewMat * matrices.worldMat;
 	_textRenderer->setMatrix(matrix);
+
+	//Font
+	_textRenderer->setFontPath("../res/Fonts/mononoki/mononoki-Regular.ttf");
 	_textRenderer->setFontSize(glm::vec2(FONT_WIDTH, FONT_HEIGHT));
+
+	//Color
 	_textRenderer->setColor(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
 	_textRenderer->setBackgroundColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <filesystem>
 #include "FontRasterizationResult.h"
 
@@ -13,10 +14,10 @@ public:
 public:
 	virtual bool isInitialized() const = 0;
 	virtual const std::filesystem::path& getFontPath() const = 0;
-	virtual const glm::ivec2& getFontSize() const = 0;
 
 	virtual bool loadFont(const std::filesystem::path& fontPath) = 0;
-	virtual void setFontSize(const glm::ivec2 &size) = 0;
 
-	virtual bool rasterize(wchar_t from, wchar_t to, FontRasterizationResult& result) = 0;
+	virtual bool rasterize(wchar_t from, wchar_t to, uint32_t width, uint32_t height, FontRasterizationResult& result) = 0;
 };
+
+typedef std::shared_ptr<IFontRaster> FontRasterSharedPtr;

@@ -37,11 +37,6 @@ const std::filesystem::path& FontRaster::getFontPath() const
 	return _fontPath;
 }
 
-const glm::ivec2& FontRaster::getFontSize() const
-{
-	return _size;
-}
-
 bool FontRaster::loadFont(const std::filesystem::path& fontPath)
 {
 	if (_face)
@@ -52,19 +47,17 @@ bool FontRaster::loadFont(const std::filesystem::path& fontPath)
 	_fontPath = fontPath;
 	const std::string& path = _fontPath.string();
 	if (path.empty() || FT_New_Face(s_freetype, path.c_str(), 0, &_face)) {
-		std::cout << "ERROR::FREETYPE: Failed to create font face "  << fontPath << std::endl;
+		std::cout << "ERROR::FREETYPE: Failed to create font face " << fontPath << std::endl;
 		return false;
 	}
 
 	return true;
 }
 
-void FontRaster::setFontSize(const glm::ivec2& size)
-{
-	_size = size;
-}
-
-bool FontRaster::rasterize(wchar_t from, wchar_t to, FontRasterizationResult& result)
+bool FontRaster::rasterize(
+	wchar_t from, wchar_t to,
+	uint32_t width, uint32_t height,
+	FontRasterizationResult& result)
 {
 #ifdef _DEBUG
 	assert(_face);
@@ -72,10 +65,10 @@ bool FontRaster::rasterize(wchar_t from, wchar_t to, FontRasterizationResult& re
 	assert(from < to);
 #endif
 
-	FT_Set_Pixel_Sizes(_face, _size.x, _size.y);
+	FT_Set_Pixel_Sizes(_face, width, height);
 
 	const size_t charCount = static_cast<size_t>(to - from);
-	auto texture2DArray = rendell::createTexture2DArray(_size.x, _size.y, charCount, rendell::TextureFormat::R);
+	auto texture2DArray = rendell::createTexture2DArray(width, height, charCount, rendell::TextureFormat::R);
 	std::vector<RasterizedChar> rasterizedChars{};
 	rasterizedChars.reserve(charCount);
 

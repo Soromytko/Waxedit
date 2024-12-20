@@ -1,8 +1,8 @@
 #include "TextBatch.h"
 
-TextBatch::TextBatch(GlyphBuffer* glyphBuffer, size_t textBufferSize)
+TextBatch::TextBatch(GlyphBufferSharedPtr glyphBuffer, size_t textBufferSize)
 {
-	_glyphBuffer.reset(glyphBuffer);
+	_glyphBuffer = glyphBuffer;
 	_textBufferSize = textBufferSize;
 
 	_textBuffers.push_back(std::make_unique<TextBuffer>(textBufferSize));

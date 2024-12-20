@@ -2,6 +2,9 @@
 #include <fstream>
 #include <memory>
 #include <glm/gtc/matrix_transform.hpp>
+#include <algorithm>
+#include "FontRaster.h"
+#include "RasteredFontStorageManager.h"
 
 #define CHAR_RANGE_SIZE 200
 #define TEXT_BUFFER_SIZE 100
@@ -17,6 +20,7 @@ static const char* s_fragShaderFilePath = "../res/Shaders/TextRenderer.fs";
 
 static std::unique_ptr<rendell::VertexArray> s_vertexArray;
 static std::unique_ptr<rendell::ShaderProgram> s_shaderProgram;
+static std::unique_ptr<RasteredFontStorageManager> s_rasteredFontStorageManager;
 static uint32_t s_matrixUniformIndex{};
 static uint32_t s_fontSizeUniformIndex{};
 static uint32_t s_colorUniformIndex{};
@@ -88,6 +92,8 @@ static bool loadShaders(std::string& vertSrcResult, std::string& fragSrcResult)
 
 static bool initStaticRendererStuff()
 {
+	s_rasteredFontStorageManager.reset(new RasteredFontStorageManager);
+
 	s_vertexArray.reset(createVertexArray());
 
 	std::string vertexSrc, fragmentSrc;
@@ -121,15 +127,15 @@ static bool initStaticRendererStuff()
 
 static void releaseStaticRendererStuff()
 {
+	s_rasteredFontStorageManager.reset(nullptr);
 	s_vertexArray.reset(nullptr);
 	s_shaderProgram.reset(nullptr);
 	s_initialized = false;
 }
 
-TextRenderer::TextRenderer(std::shared_ptr<IFontRaster> fontRaster)
+TextRenderer::TextRenderer()
 {
 	s_instanceCount++;
-	_fontRaster = fontRaster;
 	init();
 }
 
@@ -145,6 +151,11 @@ TextRenderer::~TextRenderer()
 bool TextRenderer::isInitialized() const
 {
 	return s_initialized;
+}
+
+void TextRenderer::setFontPath(const std::filesystem::path& fontPath)
+{
+	_rasteredFontStorage = getRasteredFontStorage(fontPath);
 }
 
 void TextRenderer::setText(const std::wstring& value)
@@ -164,11 +175,16 @@ void TextRenderer::setMatrix(const glm::mat4& matrix)
 	_matrix = matrix;
 }
 
-void TextRenderer::setFontSize(const glm::vec2& fontSize)
+void TextRenderer::setFontSize(const glm::ivec2& fontSize)
 {
 	_fontSize = fontSize;
-	_fontRaster->setFontSize(_fontSize);
-	_shouldBuffersBeUpdated = true;
+	if (_rasteredFontStorage)
+	{
+		const std::filesystem::path& fontPath = _rasteredFontStorage->getFontRaster()->getFontPath();
+		_rasteredFontStorage = getRasteredFontStorage(fontPath);
+		_shouldTextBatchBeUpdated = true;
+		_shouldBuffersBeUpdated = true;
+	}
 }
 
 void TextRenderer::setColor(const glm::vec4& color)
@@ -181,6 +197,21 @@ void TextRenderer::setBackgroundColor(const glm::vec4 backgroundColor)
 	_backgroundColor = backgroundColor;
 }
 
+const std::filesystem::path& TextRenderer::getFontPath() const
+{
+	if (_rasteredFontStorage)
+	{
+		return _rasteredFontStorage->getFontRaster()->getFontPath();
+	}
+
+	return {};
+}
+
+glm::ivec2 TextRenderer::getFontSize() const
+{
+	return _fontSize;
+}
+
 const std::wstring& TextRenderer::getText() const
 {
 	return _text;
@@ -189,11 +220,6 @@ const std::wstring& TextRenderer::getText() const
 const glm::vec4& TextRenderer::getColor() const
 {
 	return _color;
-}
-
-std::shared_ptr<IFontRaster> TextRenderer::getFontRaster() const
-{
-	return _fontRaster;
 }
 
 void TextRenderer::draw()
@@ -211,7 +237,7 @@ void TextRenderer::draw()
 		const GlyphBuffer* glyphBuffer = textBatch->getGlyphBuffer();
 		glyphBuffer->bind(TEXTURE_ARRAY_BLOCK);
 		s_shaderProgram->setUniformInt1(s_charFromUniformIndex, glyphBuffer->getRange().first);
-		for (const std::unique_ptr<TextBuffer> &textBuffer : textBatch->GetTextBuffers())
+		for (const std::unique_ptr<TextBuffer>& textBuffer : textBatch->GetTextBuffers())
 		{
 			textBuffer->bind(TEXT_BUFFER_BINDING, GLYPH_TRANSFORM_BUFFER_BINDING);
 			rendell::drawTriangleStripArraysInstanced(0, 4, static_cast<uint32_t>(textBuffer->getCurrentLength()));
@@ -308,38 +334,41 @@ void TextRenderer::endDrawing()
 
 void TextRenderer::updateBuffersIfNeeded()
 {
-	if (_shouldBuffersBeUpdated) {
+	if (_shouldBuffersBeUpdated)
+	{
+		if (_shouldTextBatchBeUpdated)
+		{
+			_textBatchesForRendering.clear();
+			_shouldTextBatchBeUpdated = false;
+		}
 		_textBatches.clear();
-		_textBatchesForRendering.clear();
 		updateShaderBuffers();
 		_shouldBuffersBeUpdated = false;
 	}
 }
 
+RasteredFontStorageSharedPtr TextRenderer::getRasteredFontStorage(const std::filesystem::path& fontPath)
+{
+	RasteredFontStoragePreset preset{
+		fontPath.string(),
+		_fontSize.x,
+		_fontSize.y,
+		CHAR_RANGE_SIZE,
+	};
+	return s_rasteredFontStorageManager->getRasteredFontStorage(preset);
+}
+
 TextBatch* TextRenderer::createTextBatch(wchar_t character)
 {
-	const uint16_t rangeIndex = static_cast<uint16_t>(character) / CHAR_RANGE_SIZE;
+	const wchar_t rangeIndex = _rasteredFontStorage->getRangeIndex(character);
 	if (auto it = _textBatches.find(rangeIndex); it != _textBatches.end())
 	{
 		return it->second.get();
 	}
 
-	GlyphBuffer* glyphBuffer = createGlyphBuffer(rangeIndex);
+	GlyphBufferSharedPtr glyphBuffer = _rasteredFontStorage->rasterizeGlyphRange(rangeIndex);
 	TextBatch* textBatch = new TextBatch(glyphBuffer, TEXT_BUFFER_SIZE);
 	_textBatches[rangeIndex] = std::unique_ptr<TextBatch>(textBatch);
 
 	return textBatch;
-}
-
-GlyphBuffer* TextRenderer::createGlyphBuffer(uint16_t rangeIndex)
-{
-	const wchar_t from = static_cast<wchar_t>(rangeIndex * CHAR_RANGE_SIZE);
-	const wchar_t to = static_cast<wchar_t>((rangeIndex + 1) * CHAR_RANGE_SIZE);
-	FontRasterizationResult fontRasterizationResult;
-	if (!_fontRaster->rasterize(from, to, fontRasterizationResult))
-	{
-		std::cout << "ERROR:TextBatch: Rasterization failure, {" << from << ", " << to << "}" << std::endl;
-	}
-
-	return new GlyphBuffer(from, to, std::move(fontRasterizationResult));
 }

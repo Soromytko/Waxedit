@@ -21,3 +21,5 @@ private:
 	std::pair<wchar_t, wchar_t> _range{};
 	std::unique_ptr<rendell::Texture2DArray> _textures{};
 };
+
+typedef std::shared_ptr<GlyphBuffer> GlyphBufferSharedPtr;

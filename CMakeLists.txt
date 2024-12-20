@@ -16,7 +16,8 @@ set(SOURCE_FILE_PATHS
     src/Rendering/TextBuffer.cpp
     src/Rendering/GlyphBuffer.cpp
     src/Rendering/TextBatch.cpp
-
+    src/Rendering/RasteredFontStorage.cpp
+    src/Rendering/RasteredFontStorageManager.cpp
 )
 
 add_executable(${EXE_NAME} ${SOURCE_FILE_PATHS})
