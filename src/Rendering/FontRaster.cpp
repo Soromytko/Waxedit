@@ -10,15 +10,20 @@ FontRaster::FontRaster(const std::filesystem::path& fontPath)
 
 	if (!init())
 	{
-		std::cout << "ERROR:FontRaster: Initialization failure" << std::endl;
+		std::cout << "ERROR::FontRaster: Initialization failure" << std::endl;
 		return;
 	}
 
-	loadFont(fontPath);
+	if (!fontPath.empty())
+	{
+		loadFont(fontPath);
+	}
 }
 
 FontRaster::~FontRaster()
 {
+	releaseFace();
+
 	s_instanceCount--;
 	if (s_instanceCount == 0 && s_freeTypeInitialized)
 	{
@@ -29,7 +34,7 @@ FontRaster::~FontRaster()
 
 bool FontRaster::isInitialized() const
 {
-	return s_freeTypeInitialized;
+	return s_freeTypeInitialized && _face;
 }
 
 const std::filesystem::path& FontRaster::getFontPath() const
@@ -39,10 +44,7 @@ const std::filesystem::path& FontRaster::getFontPath() const
 
 bool FontRaster::loadFont(const std::filesystem::path& fontPath)
 {
-	if (_face)
-	{
-		releaseFace();
-	}
+	releaseFace();
 
 	_fontPath = fontPath;
 	const std::string& path = _fontPath.string();
@@ -60,10 +62,15 @@ bool FontRaster::rasterize(
 	FontRasterizationResult& result)
 {
 #ifdef _DEBUG
-	assert(_face);
 	assert(s_freeTypeInitialized);
 	assert(from < to);
 #endif
+
+	if (!_face)
+	{
+		std::cout << "ERROR::FREETYPE: Font face is missing" << std::endl;
+		return false;
+	}
 
 	FT_Set_Pixel_Sizes(_face, width, height);
 
@@ -127,11 +134,11 @@ bool FontRaster::init()
 
 void FontRaster::releaseFace()
 {
-#ifdef _DEBUG
-	assert(_face);
-#endif
-	FT_Done_Face(_face);
-	_face = nullptr;
+	if (_face)
+	{
+		FT_Done_Face(_face);
+		_face = nullptr;
+	}
 }
 
 bool FontRaster::rasterizeChar(wchar_t character, FT_Glyph& result)
@@ -144,7 +151,7 @@ bool FontRaster::rasterizeChar(wchar_t character, FT_Glyph& result)
 
 	if (FT_Get_Glyph(_face->glyph, &result))
 	{
-		std::cout << "ERROR::FREETYTPE: Failed to get Glyph " << character << std::endl;
+		std::cout << "ERROR::FREETYPE: Failed to get Glyph " << character << std::endl;
 		return false;
 	}
 

@@ -53,12 +53,12 @@ static rendell::ShaderProgram* createShaderProgram(std::string&& vertexSrc, std:
 
 	if (std::string vertInfoLog, fragInfoLog; !program->compile(&vertInfoLog, &fragInfoLog))
 	{
-		std::cout << "ERROR:TextRenderer: Shader compilation failure:\n" << vertInfoLog << fragInfoLog << std::endl;
+		std::cout << "ERROR::TextRenderer: Shader compilation failure:\n" << vertInfoLog << fragInfoLog << std::endl;
 		return nullptr;
 	}
 	if (std::string infoLog; !program->link(&infoLog))
 	{
-		std::cout << "ERROR:TextRenderer: Shader linking failure:\n" << infoLog << std::endl;
+		std::cout << "ERROR::TextRenderer: Shader linking failure:\n" << infoLog << std::endl;
 		return nullptr;
 	}
 	return program;
@@ -69,14 +69,14 @@ static bool loadShaders(std::string& vertSrcResult, std::string& fragSrcResult)
 	std::fstream vertStream(s_vertShaderFilePath);
 	if (!vertStream.is_open())
 	{
-		std::cout << "ERROR:TextRenderer: Failed to open file " << s_vertShaderFilePath << std::endl;
+		std::cout << "ERROR::TextRenderer: Failed to open file " << s_vertShaderFilePath << std::endl;
 		return false;
 	}
 
 	std::fstream fragStream(s_fragShaderFilePath);
 	if (!fragStream.is_open())
 	{
-		std::cout << "ERROR:TextRenderer: Failed to open file " << s_fragShaderFilePath << std::endl;
+		std::cout << "ERROR::TextRenderer: Failed to open file " << s_fragShaderFilePath << std::endl;
 		return false;
 	}
 
@@ -98,7 +98,7 @@ static bool initStaticRendererStuff()
 	std::string vertexSrc, fragmentSrc;
 	if (!loadShaders(vertexSrc, fragmentSrc))
 	{
-		std::cout << "ERROR:TextRenderer: Shader loading failed" << std::endl;
+		std::cout << "ERROR::TextRenderer: Shader loading failed" << std::endl;
 		return false;
 	}
 
@@ -288,9 +288,12 @@ void TextRenderer::updateShaderBuffers()
 		}
 
 		TextBatch* textBatch = createTextBatch(currentCharacter);
-#ifdef _DEBUG
-		assert(textBatch);
-#endif
+		if (!textBatch)
+		{
+			std::cout << "ERROR::TextRenderer: Failed to create text batch" << std::endl;
+			return;
+		}
+
 		if (_textBatchesForRendering.find(textBatch) == _textBatchesForRendering.end())
 		{
 			textBatch->beginUpdating();
@@ -366,6 +369,10 @@ TextBatch* TextRenderer::createTextBatch(wchar_t character)
 	}
 
 	GlyphBufferSharedPtr glyphBuffer = _rasteredFontStorage->rasterizeGlyphRange(rangeIndex);
+	if (!glyphBuffer)
+	{
+		return nullptr;
+	}
 	TextBatch* textBatch = new TextBatch(glyphBuffer, TEXT_BUFFER_SIZE);
 	_textBatches[rangeIndex] = std::unique_ptr<TextBatch>(textBatch);
 

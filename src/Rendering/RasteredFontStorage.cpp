@@ -57,7 +57,8 @@ GlyphBufferSharedPtr RasteredFontStorage::createGlyphBuffer(wchar_t rangeIndex)
 	FontRasterizationResult fontRasterizationResult;
 	if (!_fontRaster->rasterize(from, to, _fontWidth, _fontHeight, fontRasterizationResult))
 	{
-		std::cout << "ERROR:TextBatch: Rasterization failure, {" << from << ", " << to << "}" << std::endl;
+		std::cout << "ERROR::RasteredFontStorage: Rasterization failure, {" << from << ", " << to << "}" << std::endl;
+		return nullptr;
 	}
 
 	return std::make_shared<GlyphBuffer>(from, to, std::move(fontRasterizationResult));
