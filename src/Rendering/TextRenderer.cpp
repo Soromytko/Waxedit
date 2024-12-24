@@ -145,6 +145,8 @@ TextRenderer::~TextRenderer()
 	{
 		releaseStaticRendererStuff();
 	}
+
+	s_rasteredFontStorageManager->clearUnusedCache();
 }
 
 bool TextRenderer::isInitialized() const

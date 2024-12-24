@@ -2,6 +2,25 @@
 #include "FontRaster.h"
 #include <algorithm>
 
+void RasteredFontStorageManager::clearUnusedCache()
+{
+	// This is a lazy cache clearing algorithm.
+	std::vector<size_t> releasedKeys;
+	releasedKeys.reserve(_rasteredFontStorages.size());
+	for (auto it = _rasteredFontStorages.cbegin(); it != _rasteredFontStorages.cend(); it++)
+	{
+		if (it->second.use_count() == 1)
+		{
+			releasedKeys.push_back(it->first);
+		}
+	}
+
+	for (const size_t key : releasedKeys)
+	{
+		_rasteredFontStorages.erase(key);
+	}
+}
+
 RasteredFontStorageSharedPtr RasteredFontStorageManager::getRasteredFontStorage(const RasteredFontStoragePreset& preset)
 {
 	const size_t key = hashFontPreset(preset);

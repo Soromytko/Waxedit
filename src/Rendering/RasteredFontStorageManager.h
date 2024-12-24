@@ -17,6 +17,8 @@ public:
 	RasteredFontStorageManager() = default;
 	~RasteredFontStorageManager() = default;
 
+	void clearUnusedCache();
+
 	RasteredFontStorageSharedPtr getRasteredFontStorage(const RasteredFontStoragePreset& preset);
 
 private:
