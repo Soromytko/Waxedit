@@ -140,6 +140,10 @@ TextRenderer::TextRenderer()
 
 TextRenderer::~TextRenderer()
 {
+	// Release it to check the cache.
+	_rasteredFontStorage.reset();
+	s_rasteredFontStorageManager->clearUnusedCache();
+
 	s_instanceCount--;
 	if (s_instanceCount == 0)
 	{
