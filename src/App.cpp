@@ -6,7 +6,6 @@
 #include "App.h"
 #include "Window.h"
 #include <vector>
-#include "Rendering/FontRaster.h"
 
 #define FONT_WIDTH 32.0f
 #define FONT_HEIGHT 32.0f
@@ -94,7 +93,7 @@ bool App::initRendell()
 
 bool App::initTextRenderer()
 {
-	_textRenderer.reset(new TextRenderer);
+	_textRenderer.reset(new rendell_text::TextRenderer);
 	return _textRenderer->isInitialized();
 }
 

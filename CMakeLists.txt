@@ -11,13 +11,13 @@ set(SOURCE_FILE_PATHS
     src/main.cpp
     src/App.cpp
     src/Window.cpp
-    src/Rendering/FontRaster.cpp
-    src/Rendering/TextRenderer.cpp
-    src/Rendering/TextBuffer.cpp
-    src/Rendering/GlyphBuffer.cpp
-    src/Rendering/TextBatch.cpp
-    src/Rendering/RasteredFontStorage.cpp
-    src/Rendering/RasteredFontStorageManager.cpp
+    rendell-text/src/FontRaster.cpp
+    rendell-text/src/TextRenderer.cpp
+    rendell-text/src/TextBuffer.cpp
+    rendell-text/src/GlyphBuffer.cpp
+    rendell-text/src/TextBatch.cpp
+    rendell-text/src/RasteredFontStorage.cpp
+    rendell-text/src/RasteredFontStorageManager.cpp
 )
 
 add_executable(${EXE_NAME} ${SOURCE_FILE_PATHS})
@@ -38,6 +38,9 @@ target_link_libraries(${EXE_NAME} freetype)
 # Rendell
 add_subdirectory(rendell)
 target_link_libraries(${EXE_NAME} rendell)
+
+# Rendell-text
+target_include_directories(${EXE_NAME} PRIVATE rendell-text/include)
 
 # Glm
 add_subdirectory(glm)

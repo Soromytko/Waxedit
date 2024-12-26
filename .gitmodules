@@ -10,3 +10,6 @@
 [submodule "Rendell"]
 	path = rendell
 	url = https://github.com/Soromytko/Rendell.git
+[submodule "rendell-text"]
+	path = rendell-text
+	url = https://github.com/Soromytko/rendell-text.git

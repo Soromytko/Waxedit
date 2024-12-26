@@ -1,6 +1,6 @@
 #pragma once
 #include "Window.h"
-#include "Rendering/TextRenderer.h"
+#include <rendell_text.h>
 
 class App final
 {
@@ -17,5 +17,5 @@ private:
 
 	int _result{ 0 };
 	std::unique_ptr<Window> _mainWindow;
-	std::unique_ptr<TextRenderer> _textRenderer;
+	std::unique_ptr<rendell_text::TextRenderer> _textRenderer;
 };
