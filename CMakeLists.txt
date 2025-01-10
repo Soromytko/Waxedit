@@ -12,6 +12,13 @@ set(SOURCE_FILE_PATHS
     src/App.cpp
     src/Window.cpp
     src/Viewport.cpp
+    src/Widgets/Widget.cpp
+    src/Widgets/Transform2D.cpp
+    src/Widgets/Rectangle.cpp
+    src/Widgets/Text.cpp
+    src/Shaders/Shader.cpp
+    src/Shaders/ShaderStorage.cpp
+    src/Shaders/RectangleShader.cpp
     rendell-text/src/rendell_text.cpp
     rendell-text/src/FontRaster.cpp
     rendell-text/src/TextRenderer.cpp

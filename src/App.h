@@ -1,6 +1,6 @@
 #pragma once
 #include "Window.h"
-#include <rendell_text.h>
+#include "Widgets/Widget.h"
 #include "Viewport.h"
 
 class App final
@@ -13,13 +13,12 @@ public:
 private:
 	bool tryCreateMainWindow();
 	bool initRendell();
-	bool initTextRenderer();
 
 	void setupViewport();
-	void setupTextRenderer();
 
 	int _result{ 0 };
 	std::unique_ptr<Window> _mainWindow;
 	ViewportSharedPtr _viewport;
-	rendell_text::TextRendererSharedPtr _textRenderer;
+
+	std::vector<WidgetSharedPtr> _widgets;
 };
