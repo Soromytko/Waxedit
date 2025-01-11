@@ -12,6 +12,7 @@ set(SOURCE_FILE_PATHS
     src/App.cpp
     src/Window.cpp
     src/Viewport.cpp
+    rendell-text/src/rendell_text.cpp
     rendell-text/src/FontRaster.cpp
     rendell-text/src/TextRenderer.cpp
     rendell-text/src/TextBuffer.cpp

@@ -21,5 +21,5 @@ private:
 	int _result{ 0 };
 	std::unique_ptr<Window> _mainWindow;
 	ViewportSharedPtr _viewport;
-	std::unique_ptr<rendell_text::TextRenderer> _textRenderer;
+	rendell_text::TextRendererSharedPtr _textRenderer;
 };

@@ -94,7 +94,7 @@ bool App::initRendell()
 
 bool App::initTextRenderer()
 {
-	_textRenderer.reset(new rendell_text::TextRenderer);
+	_textRenderer = rendell_text::createTextRenderer();
 	return _textRenderer->isInitialized();
 }
 
