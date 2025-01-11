@@ -19,7 +19,7 @@ public:
 	void setViewMat(const glm::mat4& value);
 
 	const glm::mat4& getProjectMat() const;
-	const glm::mat4& getVewMat() const;
+	const glm::mat4& getViewMat() const;
 
 private:
 	glm::mat4 _projectMat = glm::mat4(1.0f);

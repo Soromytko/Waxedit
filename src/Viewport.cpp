@@ -27,7 +27,7 @@ const glm::mat4& Viewport::getProjectMat() const
 	return _projectMat;
 }
 
-const glm::mat4& Viewport::getVewMat() const
+const glm::mat4& Viewport::getViewMat() const
 {
 	return _viewMat;
 }
