@@ -26,6 +26,7 @@ App::App()
 		_result = -1;
 		return;
 	}
+	setupViewport();
 	if (!initRendell())
 	{
 		std::cout << "Failed to initialize graphical api" << std::endl;
@@ -95,6 +96,17 @@ bool App::initTextRenderer()
 {
 	_textRenderer.reset(new rendell_text::TextRenderer);
 	return _textRenderer->isInitialized();
+}
+
+void App::setupViewport()
+{
+	const glm::mat4 projectMat = glm::ortho(0.0f, 600.0f, 0.0f, 400.0f, 0.1f, 100.0f);
+	const glm::mat4 viewMat = glm::mat4(1.0f);
+
+	_viewport = std::make_shared<Viewport>();
+	_viewport->setProjectMat(projectMat);
+	_viewport->setViewMat(viewMat);
+	Viewport::setCurrent(_viewport);
 }
 
 void App::setupTextRenderer()
