@@ -22,7 +22,7 @@ void main()
 	const vec2 offset = glyphTransform.xy;
 	const vec2 scale = glyphTransform.zw;
 
-	gl_Position = u_Matrix * vec4(a_VertexPosition * scale + offset, -1.0, 1.0);
+	gl_Position = u_Matrix * vec4(a_VertexPosition * scale + offset, 0.0, 1.0);
 	v_UV = vec2(a_VertexPosition.x, 1.0 - a_VertexPosition.y) * scale / u_FontSize;
 	v_TextureIndex = character - u_CharFrom;
 }

@@ -1,7 +1,5 @@
 #pragma once
 #include "Window.h"
-#include "Widgets/Widget.h"
-#include "Viewport.h"
 
 class App final
 {
@@ -18,7 +16,4 @@ private:
 
 	int _result{ 0 };
 	std::unique_ptr<Window> _mainWindow;
-	ViewportSharedPtr _viewport;
-
-	std::vector<WidgetSharedPtr> _widgets;
 };
