@@ -1,6 +1,7 @@
 #include "RenderingWindow.h"
 #include "Viewport.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <rendell/rendell.h>
 
 RenderingWindow::RenderingWindow(int width, int height, const char* title) :
 	Window(width, height, title)
@@ -52,4 +53,7 @@ void RenderingWindow::onRefreshed()
 	_viewport->setParameters(0, 0, width, height);
 
 	update();
+
+	// Make sure the rendering result is actually visible.
+	rendell::finish();
 }
