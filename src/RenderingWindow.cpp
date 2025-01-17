@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+#include "RenderingWindow.h"
 #include "Viewport.h"
 #include <glm/gtc/matrix_transform.hpp>
 

@@ -12,7 +12,7 @@ set(SOURCE_FILE_PATHS
     src/App.cpp
     src/Window.cpp
     src/Viewport.cpp
-    src/MainWindow.cpp
+    src/RenderingWindow.cpp
     src/MainRenderingContext.cpp
     src/Widgets/Widget.cpp
     src/Widgets/Transform2D.cpp
