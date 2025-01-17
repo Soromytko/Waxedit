@@ -2,13 +2,41 @@
 #include "Viewport.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-MainWindow::MainWindow(int width, int height, const char* title) :
+RenderingWindow::RenderingWindow(int width, int height, const char* title) :
 	Window(width, height, title)
 {
 
 }
 
-void MainWindow::onRefreshed()
+void RenderingWindow::update()
+{
+	_viewport->apply();
+	_renderingContext->render();
+
+	swapBuffers();
+}
+
+void RenderingWindow::setViewport(ViewportSharedPtr viewport)
+{
+	_viewport = viewport;
+}
+
+void RenderingWindow::setRenderingContext(RenderingContextSharedPtr renderingContext)
+{
+	_renderingContext = renderingContext;
+}
+
+const ViewportSharedPtr RenderingWindow::getViewport() const
+{
+	return _viewport;
+}
+
+const RenderingContextSharedPtr RenderingWindow::getRenderingContext() const
+{
+	return _renderingContext;
+}
+
+void RenderingWindow::onRefreshed()
 {
 	const glm::ivec2 size = getSize();
 	const int width = size.x, height = size.y;
@@ -21,9 +49,7 @@ void MainWindow::onRefreshed()
 
 	const glm::mat4 projectMat = glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, -1.0f, 1.0f);
 	_viewport->setProjectMat(projectMat);
+	_viewport->setParameters(0, 0, width, height);
 
-	_renderingContext->setViewport(0, 0, width, height);
-	_renderingContext->render();
-
-	swapBuffers();
+	update();
 }

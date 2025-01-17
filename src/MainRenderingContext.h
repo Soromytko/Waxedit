@@ -9,7 +9,6 @@ public:
 	MainRenderingContext();
 	~MainRenderingContext();
 
-	void setViewport(int x, int y, int width, int height);
 	void render() const override;
 
 private:

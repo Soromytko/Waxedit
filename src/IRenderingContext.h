@@ -9,7 +9,6 @@ protected:
 public:
 	virtual ~IRenderingContext() = default;
 
-	virtual void setViewport(int x, int y, int width, int height) = 0;
 	virtual void render() const = 0;
 
 };

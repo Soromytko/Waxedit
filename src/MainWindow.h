@@ -1,12 +1,29 @@
 #pragma once
 #include "Window.h"
+#include "Viewport.h"
+#include "IRenderingContext.h"
+#include <memory>
 
-class MainWindow final : public Window
+class RenderingWindow final : public Window
 {
 public:
-	MainWindow(int width, int height, const char* title);
-	~MainWindow() = default;
+	RenderingWindow(int width, int height, const char* title);
+	~RenderingWindow() = default;
+
+	void update();
+
+	void setViewport(ViewportSharedPtr viewport);
+	void setRenderingContext(RenderingContextSharedPtr renderingContext);
+
+	const ViewportSharedPtr getViewport() const;
+	const RenderingContextSharedPtr getRenderingContext() const;
 
 private:
 	void onRefreshed() override;
+
+	ViewportSharedPtr _viewport{ nullptr };
+	RenderingContextSharedPtr _renderingContext{ nullptr };
 };
+
+typedef std::unique_ptr<RenderingWindow> RenderingWindowUniquePtr;
+typedef std::shared_ptr<RenderingWindow> RenderingWindowSharedPtr;

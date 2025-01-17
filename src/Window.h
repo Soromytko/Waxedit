@@ -17,12 +17,7 @@ public:
 	static bool isInitialized();
 	static int getWindowCount();
 
-	void setViewport(ViewportSharedPtr value);
-	void setRenderingContext(RenderingContextSharedPtr value);
-
 	glm::ivec2 getSize() const;
-	ViewportSharedPtr getViewport() const;
-	RenderingContextSharedPtr getRenderingContext() const;
 
 	virtual void onRefreshed() {};
 	virtual void onResized(int width, int height) {};
@@ -35,8 +30,5 @@ protected:
 	GLFWwindow* _glfwWindow;
 	static bool _glfwInitialized;
 	static int _windowCount;
-
-	ViewportSharedPtr _viewport{ nullptr };
-	RenderingContextSharedPtr _renderingContext{ nullptr };
 
 };

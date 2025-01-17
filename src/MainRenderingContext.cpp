@@ -34,11 +34,6 @@ MainRenderingContext::~MainRenderingContext()
 	ShaderStorage::release();
 }
 
-void MainRenderingContext::setViewport(int x, int y, int width, int height)
-{
-	rendell::setViewport(x, y, width, height);
-}
-
 void MainRenderingContext::render() const
 {
 	rendell::clear();

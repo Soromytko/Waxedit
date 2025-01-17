@@ -2,7 +2,6 @@
 #include <GLFW/glfw3.h>
 #include <rendell/rendell.h>
 #include "App.h"
-#include "MainWindow.h"
 #include "MainRenderingContext.h"
 
 App::App()
@@ -34,9 +33,7 @@ int App::run()
 
 	while (_mainWindow->isOpen())
 	{
-		_mainWindow->getRenderingContext()->render();
-
-		_mainWindow->swapBuffers();
+		_mainWindow->update();
 		_mainWindow->processEvents();
 	}
 
@@ -47,7 +44,7 @@ int App::run()
 
 bool App::tryCreateMainWindow()
 {
-	_mainWindow = std::make_unique<MainWindow>(600, 400, "Waxedit");
+	_mainWindow = std::make_unique<RenderingWindow>(600, 400, "Waxedit");
 	if (Window::isInitialized())
 	{
 		_mainWindow->makeContextCurrent();

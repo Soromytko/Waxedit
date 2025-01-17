@@ -1,5 +1,5 @@
 #pragma once
-#include "Window.h"
+#include "MainWindow.h"
 
 class App final
 {
@@ -15,5 +15,5 @@ private:
 	void setupViewport();
 
 	int _result{ 0 };
-	std::unique_ptr<Window> _mainWindow;
+	std::unique_ptr<RenderingWindow> _mainWindow;
 };

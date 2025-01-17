@@ -61,31 +61,11 @@ int Window::getWindowCount()
 	return _windowCount;
 }
 
-void Window::setViewport(ViewportSharedPtr value)
-{
-	_viewport = value;
-}
-
-void Window::setRenderingContext(RenderingContextSharedPtr value)
-{
-	_renderingContext = value;
-}
-
 glm::ivec2 Window::getSize() const
 {
 	int width, height;
 	glfwGetFramebufferSize(_glfwWindow, &width, &height);
 	return glm::ivec2(width, height);
-}
-
-ViewportSharedPtr Window::getViewport() const
-{
-	return _viewport;
-}
-
-RenderingContextSharedPtr Window::getRenderingContext() const
-{
-	return _renderingContext;
 }
 
 bool Window::init()
