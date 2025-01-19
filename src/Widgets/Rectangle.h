@@ -4,7 +4,7 @@
 class Rectangle : public Widget
 {
 public:
-	Rectangle();
+	Rectangle(Widget* parent = nullptr);
 	~Rectangle();
 
 	void draw() const override;
@@ -13,3 +13,5 @@ private:
 	rendell::VertexArraySharedPtr _vertexArray;
 
 };
+
+typedef std::shared_ptr<Rectangle> RectangleSharedPtr;

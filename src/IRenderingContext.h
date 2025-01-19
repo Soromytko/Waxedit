@@ -10,6 +10,7 @@ public:
 	virtual ~IRenderingContext() = default;
 
 	virtual void render() const = 0;
+	virtual void onViewportUpdated(int x, int y, int width, int height) = 0;
 
 };
 

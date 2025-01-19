@@ -1,7 +1,7 @@
 #include "Text.h"
 #include "../Viewport.h"
 
-Text::Text()
+Text::Text(Widget* parent) : Widget(parent)
 {
 	_textRenderer = rendell_text::createTextRenderer();
 }

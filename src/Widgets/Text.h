@@ -5,7 +5,7 @@
 class Text : public Widget
 {
 public:
-	Text();
+	Text(Widget* parent = nullptr);
 	~Text() = default;
 
 	void setColor(glm::vec4 value) override;
@@ -24,3 +24,5 @@ public:
 private:
 	rendell_text::TextRendererSharedPtr _textRenderer{ nullptr };
 };
+
+typedef std::shared_ptr<Text> TextSharedPtr;

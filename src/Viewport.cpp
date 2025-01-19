@@ -45,3 +45,8 @@ const glm::mat4& Viewport::getViewMat() const
 {
 	return _viewMat;
 }
+
+glm::ivec2 Viewport::getSize() const
+{
+	return glm::ivec2({ _width, _height });
+}

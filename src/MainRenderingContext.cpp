@@ -13,20 +13,33 @@ MainRenderingContext::MainRenderingContext() : IRenderingContext()
 
 	rendell::setClearBits(rendell::colorBufferBit | rendell::depthBufferBit);
 
-	Rectangle* rectangle = new Rectangle();
-	rectangle->getTransform().setScale(glm::vec2(50.0f, 50.0f));
-	rectangle->setColor(glm::vec4(1.0f, 0.7f, 0.5f, 1.0f));
+	_rootWidget = std::make_shared<Widget>();
+	_rootWidget->setAnchor(Anchor::middleStretch);
 
-	Text* text = new Text();
+	Rectangle* rectangle = new Rectangle(_rootWidget.get());
+	rectangle->setColor(glm::vec4(1.0f, 0.7f, 0.5f, 1.0f));
+	rectangle->setMargins(30, 100, 20, 0);
+	rectangle->setAnchor(Anchor::topStretch);
+
+	Rectangle* redRectangle = new Rectangle(rectangle);
+	redRectangle->setColor(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
+	redRectangle->setSize(glm::vec2(50.0f, 50.0f));
+	redRectangle->setAnchor(Anchor::rightBottom);
+	redRectangle->setMargins(0, 10, 20, 0);
+
+	Text* text = new Text(_rootWidget.get());
 	text->setText(L"Hello World!");
 	text->setFontPath("../res/Fonts/mononoki/mononoki-Regular.ttf");
 	text->setFontSize(glm::vec2(FONT_WIDTH, FONT_HEIGHT));
 	text->setBackgroundColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
 	text->setColor(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	text->getTransform().setPosition(glm::vec2(-100.0f, -100.0f));
+	text->setOffset(glm::vec2(-100.0f, -100.0f));
+	text->setAnchor(Anchor::center);
 
-	_widgets.push_back(WidgetSharedPtr(rectangle));
-	_widgets.push_back(WidgetSharedPtr(text));
+	_widgets.push_back(_rootWidget.get());
+	_widgets.push_back(rectangle);
+	_widgets.push_back(redRectangle);
+	_widgets.push_back(text);
 }
 
 MainRenderingContext::~MainRenderingContext()
@@ -39,9 +52,21 @@ void MainRenderingContext::render() const
 	rendell::clear();
 	rendell::clearColor(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1);
 
-	for (const WidgetSharedPtr& widget : _widgets)
+	drawWidgets(_rootWidget.get());
+}
+
+void MainRenderingContext::onViewportUpdated(int x, int y, int width, int height)
+{
+	_rootWidget->updateRecursively();
+}
+
+void MainRenderingContext::drawWidgets(Widget* rootWidget) const
+{
+	const std::set<Widget*>& children = rootWidget->getChildren();
+	for (Widget* widget : children)
 	{
 		widget->draw();
+		drawWidgets(widget);
 	}
-
 }
+

@@ -10,8 +10,12 @@ public:
 	~MainRenderingContext();
 
 	void render() const override;
+	void onViewportUpdated(int x, int y, int width, int height) override;
 
 private:
-	std::vector<WidgetSharedPtr> _widgets;
+	void drawWidgets(Widget* rootWidget) const;
+
+	WidgetSharedPtr _rootWidget{ nullptr };
+	std::vector<Widget*> _widgets;
 
 };

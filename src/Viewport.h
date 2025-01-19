@@ -24,6 +24,8 @@ public:
 	const glm::mat4& getProjectMat() const;
 	const glm::mat4& getViewMat() const;
 
+	glm::ivec2 getSize() const;
+
 private:
 	int _x{ 0 }, _y{ 0 }, _width{ 100 }, _height{ 100 };
 	glm::mat4 _projectMat = glm::mat4(1.0f);

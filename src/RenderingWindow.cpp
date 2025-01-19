@@ -52,6 +52,8 @@ void RenderingWindow::onRefreshed()
 	_viewport->setProjectMat(projectMat);
 	_viewport->setParameters(0, 0, width, height);
 
+	_renderingContext->onViewportUpdated(0, 0, width, height);
+
 	update();
 
 	// Make sure the rendering result is actually visible.
