@@ -1,7 +1,7 @@
 #include "RenderingWindow.h"
-#include "Viewport.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <rendell/rendell.h>
+#include <rendell_ui/rendell_ui.h>
 
 RenderingWindow::RenderingWindow(int width, int height, const char* title) :
 	Window(width, height, title)
@@ -17,7 +17,7 @@ void RenderingWindow::update()
 	swapBuffers();
 }
 
-void RenderingWindow::setViewport(ViewportSharedPtr viewport)
+void RenderingWindow::setViewport(rendell_ui::ViewportSharedPtr viewport)
 {
 	_viewport = viewport;
 }
@@ -27,7 +27,7 @@ void RenderingWindow::setRenderingContext(RenderingContextSharedPtr renderingCon
 	_renderingContext = renderingContext;
 }
 
-const ViewportSharedPtr RenderingWindow::getViewport() const
+const rendell_ui::ViewportSharedPtr RenderingWindow::getViewport() const
 {
 	return _viewport;
 }

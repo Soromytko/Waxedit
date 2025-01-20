@@ -1,10 +1,9 @@
 #pragma once
-#include "Window.h"
-#include "Viewport.h"
+#include <rendell_ui/rendell_ui.h>
 #include "IRenderingContext.h"
 #include <memory>
 
-class RenderingWindow final : public Window
+class RenderingWindow final : public rendell_ui::Window
 {
 public:
 	RenderingWindow(int width, int height, const char* title);
@@ -12,16 +11,16 @@ public:
 
 	void update();
 
-	void setViewport(ViewportSharedPtr viewport);
+	void setViewport(rendell_ui::ViewportSharedPtr viewport);
 	void setRenderingContext(RenderingContextSharedPtr renderingContext);
 
-	const ViewportSharedPtr getViewport() const;
+	const rendell_ui::ViewportSharedPtr getViewport() const;
 	const RenderingContextSharedPtr getRenderingContext() const;
 
 private:
 	void onRefreshed() override;
 
-	ViewportSharedPtr _viewport{ nullptr };
+	rendell_ui::ViewportSharedPtr _viewport{ nullptr };
 	RenderingContextSharedPtr _renderingContext{ nullptr };
 };
 

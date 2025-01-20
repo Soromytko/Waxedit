@@ -1,15 +1,11 @@
 #include<iostream>
-#include <GLFW/glfw3.h>
 #include <rendell/rendell.h>
+#include <rendell_ui/rendell_ui.h>
 #include "App.h"
 #include "MainRenderingContext.h"
-#include "Widgets/rendell_widget.h"
 
 App::App()
 {
-	rendell_widget::init();
-	setupViewport();
-
 	if (!tryCreateMainWindow())
 	{
 		std::cout << "Failed to create main window" << std::endl;
@@ -22,7 +18,14 @@ App::App()
 		_result = -1;
 		return;
 	}
-	_mainWindow->setViewport(Viewport::getCurrent());
+	if (!initRendellUI())
+	{
+		std::cout << "Failed to initialize Rendell-UI" << std::endl;
+		_result = -1;
+		return;
+	}
+	setupViewport();
+	_mainWindow->setViewport(rendell_ui::Viewport::getCurrent());
 	_mainWindow->setRenderingContext(std::make_shared<MainRenderingContext>());
 
 }
@@ -41,6 +44,7 @@ int App::run()
 	}
 
 	rendell::release();
+	rendell_ui::release();
 
 	return _result;
 }
@@ -48,7 +52,7 @@ int App::run()
 bool App::tryCreateMainWindow()
 {
 	_mainWindow = std::make_unique<RenderingWindow>(600, 400, "Waxedit");
-	if (Window::isInitialized())
+	if (rendell_ui::Window::isInitialized())
 	{
 		_mainWindow->makeContextCurrent();
 		return true;
@@ -68,8 +72,13 @@ bool App::initRendell()
 	return result;
 }
 
+bool App::initRendellUI()
+{
+	return 	rendell_ui::init();
+}
+
 void App::setupViewport()
 {
-	ViewportSharedPtr viewport = std::make_shared<Viewport>();
-	Viewport::setCurrent(viewport);
+	rendell_ui::ViewportSharedPtr viewport = std::make_shared<rendell_ui::Viewport>();
+	rendell_ui::Viewport::setCurrent(viewport);
 }

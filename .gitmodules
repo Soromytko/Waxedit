@@ -1,15 +1,9 @@
-[submodule "glfw"]
-	path = glfw
-	url = https://github.com/glfw/glfw.git
-[submodule "freetype"]
-	path = freetype
-	url = https://github.com/freetype/freetype.git
 [submodule "glm"]
 	path = glm
 	url = https://github.com/g-truc/glm.git
 [submodule "Rendell"]
 	path = rendell
 	url = https://github.com/Soromytko/Rendell.git
-[submodule "rendell-text"]
-	path = rendell-text
-	url = https://github.com/Soromytko/rendell-text.git
+[submodule "rendell-ui"]
+	path = rendell-ui
+	url = https://github.com/Soromytko/rendell-ui.git

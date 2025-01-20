@@ -11,6 +11,7 @@ public:
 private:
 	bool tryCreateMainWindow();
 	bool initRendell();
+	bool initRendellUI();
 
 	void setupViewport();
 

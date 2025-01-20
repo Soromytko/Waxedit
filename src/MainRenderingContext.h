@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
+#include <rendell_ui/rendell_ui.h>
 #include "IRenderingContext.h"
-#include "Widgets/Widget.h"
 
 class MainRenderingContext final : public IRenderingContext
 {
@@ -13,6 +13,6 @@ public:
 	void onViewportUpdated(int x, int y, int width, int height) override;
 
 private:
-	WidgetSharedPtr _rootWidget{ nullptr };
+	rendell_ui::WidgetSharedPtr _rootWidget{ nullptr };
 
 };
