@@ -2,15 +2,15 @@
 #include <memory>
 #include <set>
 #include <rendell/rendell.h>
+#include "IWidget.h"
 #include "Anchor.h"
 #include "Transform2D.h"
 
-class Widget
+class Widget : public IWidget
 {
-	friend class WidgetAnchorHandler;
 public:
 	Widget(Widget* parent = nullptr);
-	~Widget();
+	virtual ~Widget();
 
 	void setParent(Widget* widget);
 	Widget* getParent() const;
@@ -34,7 +34,7 @@ public:
 	void setAnchor(Anchor value);
 	Anchor getAnchor() const;
 
-	virtual void draw() const {};
+	virtual void draw() const override {};
 
 protected:
 	virtual void updateUniforms() const;

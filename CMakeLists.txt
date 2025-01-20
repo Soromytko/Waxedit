@@ -12,6 +12,13 @@ set(SOURCE_FILE_PATHS
     src/App.cpp
     src/Window.cpp
     src/Viewport.cpp
+
+    src/Widgets/WidgetRegistrator.cpp
+    src/Widgets/WidgetHandlePipeline.cpp
+    src/Widgets/WidgetRenderPipeline.cpp
+    src/Widgets/rendell_widget.cpp
+    
+
     src/RenderingWindow.cpp
     src/MainRenderingContext.cpp
     src/Widgets/Widget.cpp

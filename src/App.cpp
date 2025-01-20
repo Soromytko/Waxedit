@@ -3,9 +3,11 @@
 #include <rendell/rendell.h>
 #include "App.h"
 #include "MainRenderingContext.h"
+#include "Widgets/rendell_widget.h"
 
 App::App()
 {
+	rendell_widget::init();
 	setupViewport();
 
 	if (!tryCreateMainWindow())
@@ -22,6 +24,7 @@ App::App()
 	}
 	_mainWindow->setViewport(Viewport::getCurrent());
 	_mainWindow->setRenderingContext(std::make_shared<MainRenderingContext>());
+
 }
 
 int App::run()

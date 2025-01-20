@@ -2,6 +2,7 @@
 #include "Widgets/Rectangle.h"
 #include "Widgets/Text.h"
 #include "Shaders/ShaderStorage.h"
+#include "Widgets/rendell_widget.h"
 
 #define FONT_WIDTH 32.0f
 #define FONT_HEIGHT 32.0f
@@ -36,10 +37,6 @@ MainRenderingContext::MainRenderingContext() : IRenderingContext()
 	text->setOffset(glm::vec2(-100.0f, -100.0f));
 	text->setAnchor(Anchor::center);
 
-	_widgets.push_back(_rootWidget.get());
-	_widgets.push_back(rectangle);
-	_widgets.push_back(redRectangle);
-	_widgets.push_back(text);
 }
 
 MainRenderingContext::~MainRenderingContext()
@@ -52,21 +49,10 @@ void MainRenderingContext::render() const
 	rendell::clear();
 	rendell::clearColor(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1);
 
-	drawWidgets(_rootWidget.get());
+	rendell_widget::draw();
 }
 
 void MainRenderingContext::onViewportUpdated(int x, int y, int width, int height)
 {
 	_rootWidget->updateRecursively();
 }
-
-void MainRenderingContext::drawWidgets(Widget* rootWidget) const
-{
-	const std::set<Widget*>& children = rootWidget->getChildren();
-	for (Widget* widget : children)
-	{
-		widget->draw();
-		drawWidgets(widget);
-	}
-}
-

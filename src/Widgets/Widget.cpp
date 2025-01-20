@@ -1,9 +1,24 @@
 #include "Widget.h"
 #include "../Viewport.h"
+#include "WidgetRegistrator.h"
 
-Widget::Widget(Widget* parent)
+static uint32_t s_instanceCount{ 0 };
+
+Widget::Widget(Widget* parent) : IWidget()
 {
 	setParent(parent);
+
+	WidgetRegistrator::getInstance()->registerWidget(this);
+}
+
+Widget::~Widget()
+{
+	WidgetRegistrator::getInstance()->unregisterWidget(this);
+
+	for (Widget* widget : _children)
+	{
+		delete widget;
+	}
 }
 
 void Widget::setParent(Widget* widget)
@@ -31,14 +46,6 @@ Widget* Widget::getParent() const
 const std::set<Widget*>& Widget::getChildren() const
 {
 	return _children;
-}
-
-Widget::~Widget()
-{
-	for (Widget* widget : _children)
-	{
-		delete widget;
-	}
 }
 
 const Transform2D& Widget::getTransform() const

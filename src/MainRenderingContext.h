@@ -13,9 +13,6 @@ public:
 	void onViewportUpdated(int x, int y, int width, int height) override;
 
 private:
-	void drawWidgets(Widget* rootWidget) const;
-
 	WidgetSharedPtr _rootWidget{ nullptr };
-	std::vector<Widget*> _widgets;
 
 };
