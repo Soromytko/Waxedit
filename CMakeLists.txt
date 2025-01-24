@@ -14,7 +14,14 @@ set(SOURCE_FILE_PATHS
     src/RenderingWindow.cpp
 )
 
-add_executable(${EXE_NAME} ${SOURCE_FILE_PATHS})
+set(HEADERS
+    src/App.h
+    src/MainRenderingContext.h
+    src/IRenderingContext.h
+    src/RenderingWindow.h
+)
+
+add_executable(${EXE_NAME} ${SOURCE_FILE_PATHS} ${HEADERS})
 
 # Rendell
 add_subdirectory(rendell)
