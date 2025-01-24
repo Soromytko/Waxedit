@@ -25,7 +25,7 @@ add_subdirectory(glm)
 target_link_libraries(${EXE_NAME} glm)
 
 # Rendell-ui
-set(RENDELL_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/rendell/include)
-set(GLM_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/glm)
+set(GLM_LIB glm)
+set(RENDELL_LIB rendell)
 add_subdirectory(rendell-ui)
 target_link_libraries(${EXE_NAME} rendell_ui)
