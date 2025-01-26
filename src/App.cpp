@@ -30,6 +30,12 @@ App::App()
 
 }
 
+App::~App()
+{
+	rendell::release();
+	rendell_ui::release();
+}
+
 int App::run()
 {
 	if (_result != 0)
@@ -42,9 +48,6 @@ int App::run()
 		_mainWindow->update();
 		_mainWindow->processEvents();
 	}
-
-	rendell::release();
-	rendell_ui::release();
 
 	return _result;
 }

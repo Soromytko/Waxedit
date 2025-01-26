@@ -5,7 +5,7 @@ class App final
 {
 public:
 	App();
-	~App() = default;
+	~App();
 	int run();
 
 private:
