@@ -1,6 +1,8 @@
 #include<iostream>
 #include <rendell/rendell.h>
 #include <rendell_ui/rendell_ui.h>
+#include <chrono>
+#include <thread>
 #include "App.h"
 #include "MainRenderingContext.h"
 
@@ -45,8 +47,10 @@ int App::run()
 
 	while (_mainWindow->isOpen())
 	{
+		_mainWindow->startFrame();
 		_mainWindow->update();
 		_mainWindow->processEvents();
+		_mainWindow->endFrame();
 	}
 
 	return _result;
