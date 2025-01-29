@@ -27,8 +27,9 @@ App::App()
 		return;
 	}
 	setupViewport();
-	_mainWindow->setViewport(rendell_ui::Viewport::getCurrent());
-	_mainWindow->setRenderingContext(std::make_shared<Renderer>());
+	_renderer = std::make_shared<Renderer>(_viewport);
+	_canvas = std::make_shared<rendell_ui::Canvas>(_viewport);
+	_mainWindow->setEventHandler(_canvas);
 
 }
 
@@ -45,12 +46,20 @@ int App::run()
 		return _result;
 	}
 
+	auto rectangle = std::make_shared< rendell_ui::Rectangle>(nullptr);
+	rectangle->setColor(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	rectangle->setAnchor(rendell_ui::Anchor::leftTop);
+
+	_canvas->addWidget(rectangle);
+
 	while (_mainWindow->isOpen())
 	{
-		_mainWindow->startFrame();
-		_mainWindow->update();
+		_renderer->startFrame();
+		_renderer->render();
+		_mainWindow->swapBuffers();
 		_mainWindow->processEvents();
-		_mainWindow->endFrame();
+		_renderer->endFrame();
+		_renderer->cooldown();
 	}
 
 	return _result;
@@ -58,13 +67,14 @@ int App::run()
 
 bool App::tryCreateMainWindow()
 {
-	_mainWindow = std::make_unique<RenderingWindow>(600, 400, "Waxedit");
-	if (rendell_ui::Window::isInitialized())
+	_mainWindow = std::make_unique<rendell_ui::Window>(600, 400, "Waxedit");
+	if (!_mainWindow->isInitialized())
 	{
-		_mainWindow->makeContextCurrent();
-		return true;
+		return false;
 	}
-	return false;
+	_mainWindow->makeContextCurrent();
+	_mainWindow->setEventHandler(std::make_shared<rendell_ui::Canvas>(_viewport));
+	return true;
 }
 
 bool App::initRendell()
@@ -86,6 +96,6 @@ bool App::initRendellUI()
 
 void App::setupViewport()
 {
-	rendell_ui::ViewportSharedPtr viewport = std::make_shared<rendell_ui::Viewport>();
-	rendell_ui::Viewport::setCurrent(viewport);
+	_viewport = std::make_shared<rendell_ui::Viewport>();
+	rendell_ui::Viewport::setCurrent(_viewport);
 }

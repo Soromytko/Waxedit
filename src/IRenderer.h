@@ -9,8 +9,10 @@ protected:
 public:
 	virtual ~IRenderer() = default;
 
+	virtual void startFrame() = 0;
+	virtual void endFrame() = 0;
+	virtual void cooldown() = 0;
 	virtual void render() const = 0;
-	virtual void onViewportUpdated(int x, int y, int width, int height) = 0;
 
 };
 
