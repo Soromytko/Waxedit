@@ -10,7 +10,7 @@ MainRenderingContext::MainRenderingContext() : IRenderingContext()
 	rendell::setClearBits(rendell::colorBufferBit | rendell::depthBufferBit);
 
 	_rootWidget = std::make_shared<rendell_ui::Widget>();
-	_rootWidget->setAnchor(rendell_ui::Anchor::middleStretch);
+	_rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
 
 	rendell_ui::Rectangle* rectangle = new rendell_ui::Rectangle(_rootWidget.get());
 	rectangle->setColor(glm::vec4(1.0f, 0.7f, 0.5f, 1.0f));
