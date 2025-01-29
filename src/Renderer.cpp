@@ -5,32 +5,9 @@
 #define FONT_HEIGHT 32.0f
 #define BACKGROUND_COLOR 31.0f / 255.0
 
-Renderer::Renderer() : IRenderer()
+Renderer::Renderer(rendell_ui::ViewportSharedPtr viewport) :
+	_viewport(viewport)
 {
-	rendell::setClearBits(rendell::colorBufferBit | rendell::depthBufferBit);
-
-	_rootWidget = std::make_shared<rendell_ui::Widget>();
-	_rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
-
-	rendell_ui::Rectangle* rectangle = new rendell_ui::Rectangle(_rootWidget.get());
-	rectangle->setColor(glm::vec4(1.0f, 0.7f, 0.5f, 1.0f));
-	rectangle->setMargins(30, 100, 20, 0);
-	rectangle->setAnchor(rendell_ui::Anchor::topStretch);
-
-	rendell_ui::Rectangle* redRectangle = new rendell_ui::Rectangle(rectangle);
-	redRectangle->setColor(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
-	redRectangle->setSize(glm::vec2(50.0f, 50.0f));
-	redRectangle->setAnchor(rendell_ui::Anchor::rightBottom);
-	redRectangle->setMargins(0, 10, 20, 0);
-
-	rendell_ui::Text* text = new rendell_ui::Text(_rootWidget.get());
-	text->setText(L"Hello World!");
-	text->setFontPath("../res/Fonts/mononoki/mononoki-Regular.ttf");
-	text->setFontSize(glm::vec2(FONT_WIDTH, FONT_HEIGHT));
-	text->setBackgroundColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
-	text->setColor(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	text->setOffset(glm::vec2(-100.0f, -100.0f));
-	text->setAnchor(rendell_ui::Anchor::center);
 
 }
 
@@ -39,15 +16,62 @@ Renderer::~Renderer()
 
 }
 
+void Renderer::startFrame()
+{
+	_frameStartTimePoint = Clock::now();
+}
+
+void Renderer::endFrame()
+{
+	_frameEndTimePoint = Clock::now();
+	_deltaTime = std::chrono::duration<double>(_frameEndTimePoint - _frameStartTimePoint).count();
+	_sleepTime = _targetFrameTime - _deltaTime;
+	_fps = static_cast<int>(1.0 / (_deltaTime + _sleepTime));
+}
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+
+void sleep_microseconds(long long microseconds) {
+#ifdef _WIN32
+	LARGE_INTEGER frequency;
+	LARGE_INTEGER start, end;
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&start);
+
+	long long ticksToWait = (microseconds * frequency.QuadPart) / 1000000;
+
+	if (ticksToWait <= 0)
+	{
+		return;
+	}
+	do
+	{
+		QueryPerformanceCounter(&end);
+	} while (end.QuadPart - start.QuadPart < ticksToWait);
+
+#else
+	usleep(microseconds);
+#endif
+}
+
+void Renderer::cooldown()
+{
+	if (_sleepTime > 0)
+	{
+		sleep_microseconds(static_cast<long long>(_sleepTime * 1000000.0));
+	}
+}
+
 void Renderer::render() const
 {
+	_viewport->apply();
+
 	rendell::clear();
 	rendell::clearColor(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1);
 
 	rendell_ui::draw();
-}
-
-void Renderer::onViewportUpdated(int x, int y, int width, int height)
-{
-	_rootWidget->updateRecursively();
 }

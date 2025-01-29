@@ -1,5 +1,7 @@
 #pragma once
-#include "RenderingWindow.h"
+#include <rendell_ui/rendell_ui.h>
+#include "Canvas.h"
+#include "IRenderer.h"
 
 class App final
 {
@@ -16,5 +18,9 @@ private:
 	void setupViewport();
 
 	int _result{ 0 };
-	std::unique_ptr<RenderingWindow> _mainWindow;
+	
+	IRendererSharedPtr _renderer;
+	rendell_ui::WindowSharedPtr _mainWindow;
+	rendell_ui::ViewportSharedPtr _viewport;
+	CanvasSharedPtr _canvas;
 };

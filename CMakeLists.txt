@@ -11,14 +11,14 @@ set(SOURCE_FILE_PATHS
     src/main.cpp
     src/App.cpp
     src/Renderer.cpp
-    src/RenderingWindow.cpp
+    src/Canvas.cpp
 )
 
 set(HEADERS
     src/App.h
     src/IRenderer.h
     src/Renderer.h
-    src/RenderingWindow.h
+    src/Canvas.h
 )
 
 add_executable(${EXE_NAME} ${SOURCE_FILE_PATHS} ${HEADERS})
