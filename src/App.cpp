@@ -4,7 +4,7 @@
 #include <chrono>
 #include <thread>
 #include "App.h"
-#include "MainRenderingContext.h"
+#include "Renderer.h"
 
 App::App()
 {

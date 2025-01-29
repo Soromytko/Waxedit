@@ -10,14 +10,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILE_PATHS
     src/main.cpp
     src/App.cpp
-    src/MainRenderingContext.cpp
+    src/Renderer.cpp
     src/RenderingWindow.cpp
 )
 
 set(HEADERS
     src/App.h
-    src/MainRenderingContext.h
-    src/IRenderingContext.h
+    src/IRenderer.h
+    src/Renderer.h
     src/RenderingWindow.h
 )
 
