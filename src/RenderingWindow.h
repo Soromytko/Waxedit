@@ -19,13 +19,13 @@ public:
 
 	void setTargetFPS(uint32_t value);
 	void setViewport(rendell_ui::ViewportSharedPtr viewport);
-	void setRenderingContext(RenderingContextSharedPtr renderingContext);
+	void setRenderingContext(IRendererSharedPtr renderingContext);
 
 	uint32_t getFPS() const;
 	uint32_t getTargetFPS() const;
 	double getDeltaTime() const;
 	const rendell_ui::ViewportSharedPtr getViewport() const;
-	const RenderingContextSharedPtr getRenderingContext() const;
+	const IRendererSharedPtr getRenderingContext() const;
 
 private:
 	void cooldown(double sleepTime);
@@ -40,7 +40,7 @@ private:
 	double _deltaTime{};
 
 	rendell_ui::ViewportSharedPtr _viewport{ nullptr };
-	RenderingContextSharedPtr _renderingContext{ nullptr };
+	IRendererSharedPtr _renderingContext{ nullptr };
 };
 
 typedef std::unique_ptr<RenderingWindow> RenderingWindowUniquePtr;

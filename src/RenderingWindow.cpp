@@ -47,7 +47,7 @@ void RenderingWindow::setViewport(rendell_ui::ViewportSharedPtr viewport)
 	_viewport = viewport;
 }
 
-void RenderingWindow::setRenderingContext(RenderingContextSharedPtr renderingContext)
+void RenderingWindow::setRenderingContext(IRendererSharedPtr renderingContext)
 {
 	_renderingContext = renderingContext;
 }
@@ -72,7 +72,7 @@ const rendell_ui::ViewportSharedPtr RenderingWindow::getViewport() const
 	return _viewport;
 }
 
-const RenderingContextSharedPtr RenderingWindow::getRenderingContext() const
+const IRendererSharedPtr RenderingWindow::getRenderingContext() const
 {
 	return _renderingContext;
 }

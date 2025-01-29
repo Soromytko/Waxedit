@@ -5,7 +5,7 @@
 #define FONT_HEIGHT 32.0f
 #define BACKGROUND_COLOR 31.0f / 255.0
 
-MainRenderingContext::MainRenderingContext() : IRenderingContext()
+Renderer::Renderer() : IRenderer()
 {
 	rendell::setClearBits(rendell::colorBufferBit | rendell::depthBufferBit);
 
@@ -34,12 +34,12 @@ MainRenderingContext::MainRenderingContext() : IRenderingContext()
 
 }
 
-MainRenderingContext::~MainRenderingContext()
+Renderer::~Renderer()
 {
 
 }
 
-void MainRenderingContext::render() const
+void Renderer::render() const
 {
 	rendell::clear();
 	rendell::clearColor(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1);
@@ -47,7 +47,7 @@ void MainRenderingContext::render() const
 	rendell_ui::draw();
 }
 
-void MainRenderingContext::onViewportUpdated(int x, int y, int width, int height)
+void Renderer::onViewportUpdated(int x, int y, int width, int height)
 {
 	_rootWidget->updateRecursively();
 }

@@ -28,7 +28,7 @@ App::App()
 	}
 	setupViewport();
 	_mainWindow->setViewport(rendell_ui::Viewport::getCurrent());
-	_mainWindow->setRenderingContext(std::make_shared<MainRenderingContext>());
+	_mainWindow->setRenderingContext(std::make_shared<Renderer>());
 
 }
 

@@ -3,11 +3,11 @@
 #include <rendell_ui/rendell_ui.h>
 #include "IRenderer.h"
 
-class MainRenderingContext final : public IRenderingContext
+class Renderer final : public IRenderer
 {
 public:
-	MainRenderingContext();
-	~MainRenderingContext();
+	Renderer();
+	~Renderer();
 
 	void render() const override;
 	void onViewportUpdated(int x, int y, int width, int height) override;

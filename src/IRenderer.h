@@ -1,17 +1,17 @@
 #pragma once
 #include <memory>
 
-class IRenderingContext
+class IRenderer
 {
 protected:
-	IRenderingContext() = default;
+	IRenderer() = default;
 
 public:
-	virtual ~IRenderingContext() = default;
+	virtual ~IRenderer() = default;
 
 	virtual void render() const = 0;
 	virtual void onViewportUpdated(int x, int y, int width, int height) = 0;
 
 };
 
-typedef std::shared_ptr<IRenderingContext> RenderingContextSharedPtr;
+typedef std::shared_ptr<IRenderer> IRendererSharedPtr;
