@@ -20,6 +20,10 @@ Waxedit is considered to be cross-platform (at least Linux and Windows). However
 - Working with multiple files.
 
 # Build
+Clone this repository with the `--recursive` option
+```
+git clone --recursive https://github.com/Soromytko/Waxedit.git
+```
 CMake 13.3 is required to build the project.
 
 ```
