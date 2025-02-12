@@ -107,7 +107,7 @@ bool App::tryCreateMainWindow()
 bool App::initRendell()
 {
 	rendell::Initer initer;
-	initer.context = static_cast<void*>(glfwGetProcAddress);
+	initer.context = reinterpret_cast<void*>(glfwGetProcAddress);
 	const bool result = rendell::init(initer);
 	if (result)
 	{
