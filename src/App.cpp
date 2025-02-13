@@ -77,7 +77,6 @@ int main()
 		renderer->render();
 		window->swapBuffers();
 		renderer->endFrame();
-		renderer->cooldown();
 		});
 
 	while (_mainWindow->isOpen())
