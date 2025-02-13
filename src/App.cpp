@@ -66,6 +66,8 @@ int main()
 }
 	)");
 
+	// TODO: Should this happen automatically?
+	rootWidget->updateRecursively();
 
 	_canvas->addWidget(rootWidget);
 
