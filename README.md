@@ -26,7 +26,7 @@ git clone --recursive https://github.com/Soromytko/Waxedit.git
 CMake 13.3 is required to build the project.
 
 ```
-cd build
+mkdir build && cd build
 cmake ..
 cmake --build .
 ```
