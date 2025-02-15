@@ -19,9 +19,25 @@ set(HEADERS
     src/IRenderer.h
     src/Renderer.h
     src/Canvas.h
+
+    src/file_dialog.h
+)
+
+set(WINDOWS_SOURCES
+    src/Platform/windows_file_dialog.cpp
+)
+
+set(LINUX_SOURCES
+    src/Platform/linux_file_dialog.cpp
 )
 
 add_executable(${EXE_NAME} ${SOURCE_FILE_PATHS} ${HEADERS})
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_sources(${EXE_NAME} PRIVATE ${WINDOWS_SOURCES})
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_sources(${EXE_NAME} PRIVATE ${LINUX_SOURCES})
+endif()
 
 # Rendell
 add_subdirectory(rendell)
