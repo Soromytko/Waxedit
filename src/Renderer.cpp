@@ -1,10 +1,6 @@
 #include "Renderer.h"
 #include <rendell_ui/rendell_ui.h>
 
-#define FONT_WIDTH 32.0f
-#define FONT_HEIGHT 32.0f
-#define BACKGROUND_COLOR 31.0f / 255.0
-
 Renderer::Renderer(rendell_ui::ViewportSharedPtr viewport) :
 	_viewport(viewport)
 {
@@ -71,7 +67,7 @@ void Renderer::render() const
 	_viewport->apply();
 
 	rendell::clear();
-	rendell::clearColor(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1);
+	rendell::clearColor(0.0f, 0.0f, 0.0f, 1);
 
 	rendell_ui::draw();
 }

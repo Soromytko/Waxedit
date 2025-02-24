@@ -50,10 +50,11 @@ int App::run()
 		return _result;
 	}
 
-	rendell_ui::WidgetSharedPtr rootWidget = std::make_shared<rendell_ui::Widget>();
+	rendell_ui::RectangleSharedPtr rootWidget = std::make_shared<rendell_ui::RectangleWidget>();
+	rootWidget->setColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
 	rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
 
-	rendell_ui::TextEdit* textEdit = new rendell_ui::TextEdit(rootWidget.get());
+	rendell_ui::TextEditWidget* textEdit = new rendell_ui::TextEditWidget(rootWidget.get());
 	textEdit->setSize(glm::vec2(50, 50));
 	textEdit->setMargins(0, 0, 0, 0);
 	textEdit->setAnchor(rendell_ui::Anchor::centerStretch);
