@@ -5,10 +5,7 @@
 #include <thread>
 #include "App.h"
 #include "Renderer.h"
-
-#define FONT_WIDTH 32.0f
-#define FONT_HEIGHT 32.0f
-#define BACKGROUND_COLOR 31.0f / 255.0
+#include "Editor/Editor.h"
 
 App::App()
 {
@@ -35,14 +32,19 @@ App::App()
 	_canvas = std::make_shared<Canvas>(_viewport);
 	_mainWindow->setEventHandler(_canvas);
 
-	_hotkeyHandler = std::make_shared<HotkeyHandler>();
+	_invoker = std::make_shared<Invoker>();
 
+	_hotkeyHandler = std::make_shared<HotkeyHandler>();
+	_hotkeyHandler->setInvoker(_invoker);
+
+	Editor::init(_canvas);
 }
 
 App::~App()
 {
 	rendell::release();
 	rendell_ui::release();
+	Editor::release();
 }
 
 int App::run()
@@ -52,27 +54,6 @@ int App::run()
 		return _result;
 	}
 
-	rendell_ui::RectangleSharedPtr rootWidget = std::make_shared<rendell_ui::RectangleWidget>();
-	rootWidget->setColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
-	rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
-
-	rendell_ui::TextEditWidget* textEdit = new rendell_ui::TextEditWidget(rootWidget.get());
-	textEdit->setSize(glm::vec2(50, 50));
-	textEdit->setMargins(0, 0, 0, 0);
-	textEdit->setAnchor(rendell_ui::Anchor::centerStretch);
-	textEdit->setText(LR"(#include <iostream>
-
-int main()
-{
-    std::cout << "Hello World!" << std::endl;
-    return 0;
-}
-	)");
-
-	// TODO: Should this happen automatically?
-	rootWidget->updateRecursively();
-
-	_canvas->addWidget(rootWidget);
 	_canvas->setHotkeyHandler(_hotkeyHandler);
 
 	auto renderer = _renderer;

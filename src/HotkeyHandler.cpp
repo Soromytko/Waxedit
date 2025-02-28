@@ -1,4 +1,5 @@
 #include "HotkeyHandler.h"
+#include "Editor/Commands/OpenFileCommand.h"
 
 void HotkeyHandler::handle(const rendell_ui::KeyboardInput& keyboardInput)
 {
@@ -18,13 +19,18 @@ void HotkeyHandler::handle(const rendell_ui::KeyboardInput& keyboardInput)
 	}
 }
 
+void HotkeyHandler::setInvoker(InvokerSharedPtr invoker)
+{
+	_invoker = invoker;
+}
+
 void HotkeyHandler::handleCtrlHotkeys(rendell_ui::InputKey key)
 {
 	switch (key)
 	{
 	case rendell_ui::InputKey::O:
 	{
-		std::cout << "Hotkey inputted: Ctrl + O" << std::endl;
+		_invoker->executeCommand(std::make_shared<OpenFileCommand>());
 		break;
 	}
 	case rendell_ui::InputKey::S:

@@ -3,6 +3,7 @@
 #include "Canvas.h"
 #include "HotkeyHandler.h"
 #include "IRenderer.h"
+#include "Editor/Commands/Invoker.h"
 
 class App final
 {
@@ -26,4 +27,5 @@ private:
 	rendell_ui::WindowSharedPtr _mainWindow;
 	rendell_ui::ViewportSharedPtr _viewport;
 	CanvasSharedPtr _canvas;
+	InvokerSharedPtr _invoker;
 };

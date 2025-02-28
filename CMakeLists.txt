@@ -13,6 +13,13 @@ set(SOURCE_FILE_PATHS
     src/Renderer.cpp
     src/Canvas.cpp
     src/HotkeyHandler.cpp
+    src/Editor/Editor.cpp
+    src/Editor/EditorModel.cpp
+    src/Editor/EditorView.cpp
+    src/Editor/EditorPresenter.cpp
+    src/Editor/Document.cpp
+    src/Editor/Commands/Invoker.cpp
+    src/Editor/Commands/OpenFileCommand.cpp
 )
 
 set(HEADERS
@@ -21,6 +28,17 @@ set(HEADERS
     src/Renderer.h
     src/Canvas.h
     src/HotkeyHandler.h
+    src/Editor/Editor.h
+    src/Editor/EditorModel.h
+    src/Editor/EditorModelObserver.h
+    src/Editor/IEditorView.h
+    src/Editor/EditorView.h
+    src/Editor/EditorPresenter.h
+    src/Editor/Document.h
+    src/Editor/Commands/Invoker.h
+    src/Editor/Commands/Command.h
+    src/Editor/Commands/NotStackableCommand.h
+    src/Editor/Commands/OpenFileCommand.h
 
     src/file_dialog.h
 )
