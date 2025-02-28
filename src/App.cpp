@@ -35,6 +35,8 @@ App::App()
 	_canvas = std::make_shared<Canvas>(_viewport);
 	_mainWindow->setEventHandler(_canvas);
 
+	_hotkeyHandler = std::make_shared<HotkeyHandler>();
+
 }
 
 App::~App()
@@ -71,6 +73,7 @@ int main()
 	rootWidget->updateRecursively();
 
 	_canvas->addWidget(rootWidget);
+	_canvas->setHotkeyHandler(_hotkeyHandler);
 
 	auto renderer = _renderer;
 	auto window = _mainWindow;

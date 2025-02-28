@@ -12,6 +12,7 @@ set(SOURCE_FILE_PATHS
     src/App.cpp
     src/Renderer.cpp
     src/Canvas.cpp
+    src/HotkeyHandler.cpp
 )
 
 set(HEADERS
@@ -19,6 +20,7 @@ set(HEADERS
     src/IRenderer.h
     src/Renderer.h
     src/Canvas.h
+    src/HotkeyHandler.h
 
     src/file_dialog.h
 )

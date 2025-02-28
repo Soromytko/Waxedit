@@ -14,6 +14,18 @@ void Canvas::onRefreshed(int width, int height)
 	}
 }
 
+void Canvas::onKeyInputted(const rendell_ui::KeyboardInput& keyboardInput)
+{
+	_hotkeyHandler->handle(keyboardInput);
+	
+	rendell_ui::Canvas::onKeyInputted(keyboardInput);
+}
+
+void Canvas::setHotkeyHandler(HotkeyHandlerSharedPtr hotkeyHandler)
+{
+	_hotkeyHandler = hotkeyHandler;
+}
+
 void Canvas::setRefreshedCallback(RefreshedCallback callback)
 {
 	_refreshedCallback = callback;

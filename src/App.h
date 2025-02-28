@@ -1,6 +1,7 @@
 #pragma once
 #include <rendell_ui/rendell_ui.h>
 #include "Canvas.h"
+#include "HotkeyHandler.h"
 #include "IRenderer.h"
 
 class App final
@@ -20,6 +21,8 @@ private:
 	int _result{ 0 };
 	
 	IRendererSharedPtr _renderer;
+	HotkeyHandlerSharedPtr _hotkeyHandler;
+
 	rendell_ui::WindowSharedPtr _mainWindow;
 	rendell_ui::ViewportSharedPtr _viewport;
 	CanvasSharedPtr _canvas;

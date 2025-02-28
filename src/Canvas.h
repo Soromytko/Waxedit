@@ -2,6 +2,7 @@
 #include <memory>
 #include <functional>
 #include <rendell_ui/rendell_ui.h>
+#include "HotkeyHandler.h"
 
 class Canvas;
 
@@ -15,10 +16,14 @@ public:
 	~Canvas() = default;
 
 	void onRefreshed(int width, int height) override;
+	void onKeyInputted(const rendell_ui::KeyboardInput& keyboardInput) override;
 
+	void setHotkeyHandler(HotkeyHandlerSharedPtr hotkeyHandler);
 	void setRefreshedCallback(RefreshedCallback callback);
 
 private:
+
+	HotkeyHandlerSharedPtr _hotkeyHandler{ nullptr };
 	RefreshedCallback _refreshedCallback{ nullptr };
 
 };
