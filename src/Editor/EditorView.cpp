@@ -19,6 +19,7 @@ int main()
     return 0;
 }
 	)");
+	_canvas->focusWidget(_documents.begin()->second);
 }
 
 CanvasSharedPtr EditorView::getCanvas() const
