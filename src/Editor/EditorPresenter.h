@@ -5,6 +5,7 @@
 #include "IEditorView.h"
 #include "EditorModel.h"
 #include "Document.h"
+#include "../defines.h"
 
 class EditorPresenter final : public EditorModelObserver
 {
@@ -29,10 +30,4 @@ private:
 
 };
 
-typedef std::shared_ptr<EditorPresenter> EditorPresenterSharedPtr;
-
-template <typename... Args>
-EditorPresenterSharedPtr makeEditorPresenter(Args&&... args)
-{
-	return std::make_shared<EditorPresenter>(std::forward<Args>(args)...);
-}
+DECLARE_SHARED_PTR_FACTORY(EditorPresenter)

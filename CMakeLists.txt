@@ -40,6 +40,7 @@ set(HEADERS
     src/Editor/Commands/NotStackableCommand.h
     src/Editor/Commands/OpenFileCommand.h
 
+    src/defines.h
     src/file_dialog.h
 )
 

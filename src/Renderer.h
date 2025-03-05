@@ -2,6 +2,7 @@
 #include <memory>
 #include <rendell_ui/rendell_ui.h>
 #include "IRenderer.h"
+#include "defines.h"
 
 class Renderer final : public IRenderer
 {
@@ -30,3 +31,5 @@ private:
 	double _sleepTime{};
 
 };
+
+DECLARE_SHARED_PTR_FACTORY(Renderer)

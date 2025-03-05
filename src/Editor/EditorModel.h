@@ -2,9 +2,9 @@
 #include <memory>
 #include <unordered_map>
 #include <filesystem>
-#include "../defines.h"
 #include "EditorModelObserver.h"
 #include "Document.h"
+#include "../defines.h"
 
 class EditorModel final
 {
@@ -21,10 +21,4 @@ private:
 	std::unordered_map<std::wstring, DocumentSharedPtr> _documents;
 };
 
-typedef std::shared_ptr<EditorModel> EditorModelSharedPtr;
-
-template <typename... Args>
-EditorModelSharedPtr makeEditorModel(Args&&... args)
-{
-	return std::make_shared<EditorModel>(std::forward<Args>(args)...);
-}
+DECLARE_SHARED_PTR_FACTORY(EditorModel)

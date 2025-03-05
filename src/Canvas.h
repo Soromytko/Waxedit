@@ -2,18 +2,18 @@
 #include <memory>
 #include <functional>
 #include <rendell_ui/rendell_ui.h>
+#include "defines.h"
 #include "HotkeyHandler.h"
 
-class Canvas;
+class EditorCanvas;
 
 typedef std::function<void(int, int)> RefreshedCallback;
-typedef std::shared_ptr<Canvas> CanvasSharedPtr;
 
-class Canvas final : public rendell_ui::Canvas
+class EditorCanvas final : public rendell_ui::Canvas
 {
 public:
-	Canvas(rendell_ui::ViewportSharedPtr viewport);
-	~Canvas() = default;
+	EditorCanvas(rendell_ui::ViewportSharedPtr viewport);
+	~EditorCanvas() = default;
 
 	void onRefreshed(int width, int height) override;
 	void onKeyInputted(const rendell_ui::KeyboardInput& keyboardInput) override;
@@ -28,3 +28,4 @@ private:
 
 };
 
+DECLARE_SHARED_PTR_FACTORY(EditorCanvas)

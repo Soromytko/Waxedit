@@ -1,11 +1,11 @@
 #include "Canvas.h"
 
-Canvas::Canvas(rendell_ui::ViewportSharedPtr viewport) : rendell_ui::Canvas(viewport)
+EditorCanvas::EditorCanvas(rendell_ui::ViewportSharedPtr viewport) : rendell_ui::Canvas(viewport)
 {
 
 }
 
-void Canvas::onRefreshed(int width, int height)
+void EditorCanvas::onRefreshed(int width, int height)
 {
 	rendell_ui::Canvas::onRefreshed(width, height);
 	if (_refreshedCallback)
@@ -14,19 +14,19 @@ void Canvas::onRefreshed(int width, int height)
 	}
 }
 
-void Canvas::onKeyInputted(const rendell_ui::KeyboardInput& keyboardInput)
+void EditorCanvas::onKeyInputted(const rendell_ui::KeyboardInput& keyboardInput)
 {
 	_hotkeyHandler->handle(keyboardInput);
 	
 	rendell_ui::Canvas::onKeyInputted(keyboardInput);
 }
 
-void Canvas::setHotkeyHandler(HotkeyHandlerSharedPtr hotkeyHandler)
+void EditorCanvas::setHotkeyHandler(HotkeyHandlerSharedPtr hotkeyHandler)
 {
 	_hotkeyHandler = hotkeyHandler;
 }
 
-void Canvas::setRefreshedCallback(RefreshedCallback callback)
+void EditorCanvas::setRefreshedCallback(RefreshedCallback callback)
 {
 	_refreshedCallback = callback;
 }

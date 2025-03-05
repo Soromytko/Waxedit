@@ -5,7 +5,7 @@
 
 static Editor* s_instance{ nullptr };
 
-Editor::Editor(CanvasSharedPtr canvas)
+Editor::Editor(EditorCanvasSharedPtr canvas)
 {
 	EditorModelSharedPtr model = makeEditorModel();
 	EditorPresenterSharedPtr presenter = makeEditorPresenter();
@@ -22,12 +22,12 @@ Editor::Editor(CanvasSharedPtr canvas)
 	_presenter = presenter;
 }
 
-CanvasSharedPtr Editor::getCanvas() const
+EditorCanvasSharedPtr Editor::getCanvas() const
 {
 	return _view->getCanvas();
 }
 
-bool Editor::init(CanvasSharedPtr canvas)
+bool Editor::init(EditorCanvasSharedPtr canvas)
 {
 	assert(s_instance == nullptr);
 	s_instance = new Editor(canvas);

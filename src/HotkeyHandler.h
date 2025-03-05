@@ -2,6 +2,7 @@
 #include <memory>
 #include <rendell_ui/rendell_ui.h>
 #include "Editor/Commands/Invoker.h"
+#include "defines.h"
 
 class HotkeyHandler
 {
@@ -17,4 +18,4 @@ private:
 
 };
 
-typedef std::shared_ptr<HotkeyHandler> HotkeyHandlerSharedPtr;
+DECLARE_SHARED_PTR_FACTORY(HotkeyHandler)

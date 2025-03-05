@@ -2,6 +2,7 @@
 #include <memory>
 #include <string>
 #include <filesystem>
+#include "../defines.h"
 
 class Document final
 {
@@ -26,11 +27,4 @@ private:
 
 };
 
-typedef std::shared_ptr<Document> DocumentSharedPtr;
-
-template <typename... Args>
-DocumentSharedPtr makeDocument(Args&&... args)
-{
-	return std::make_shared<Document>(std::forward<Args>(args)...);
-}
-
+DECLARE_SHARED_PTR_FACTORY(Document)

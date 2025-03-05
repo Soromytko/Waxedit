@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "../../defines.h"
 
 class Command
 {
@@ -13,4 +14,4 @@ public:
 	virtual bool isStackable() const { return true; }
 };
 
-typedef std::shared_ptr<Command> CommandSharedPtr;
+DECLARE_SHARED_PTR(Command)

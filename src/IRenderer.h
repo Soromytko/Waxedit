@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "defines.h"
 
 class IRenderer
 {
@@ -16,4 +17,4 @@ public:
 
 };
 
-typedef std::shared_ptr<IRenderer> IRendererSharedPtr;
+DECLARE_SHARED_PTR(IRenderer)

@@ -4,10 +4,10 @@
 #define FONT_HEIGHT 32.0f
 #define BACKGROUND_COLOR 31.0f / 255.0
 
-EditorView::EditorView(CanvasSharedPtr canvas) :
+EditorView::EditorView(EditorCanvasSharedPtr canvas) :
 	_canvas(canvas), _presenter(nullptr)
 {
-	_rootWidget = std::make_shared<rendell_ui::RectangleWidget>();
+	_rootWidget = rendell_ui::makeRectangleWidget();
 	_rootWidget->setColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
 	_rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
 	_canvas->addWidget(_rootWidget);
@@ -22,7 +22,7 @@ int main()
 	_canvas->focusWidget(_documents.begin()->second);
 }
 
-CanvasSharedPtr EditorView::getCanvas() const
+EditorCanvasSharedPtr EditorView::getCanvas() const
 {
 	return _canvas;
 }

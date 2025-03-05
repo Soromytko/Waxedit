@@ -30,7 +30,7 @@ void HotkeyHandler::handleCtrlHotkeys(rendell_ui::InputKey key)
 	{
 	case rendell_ui::InputKey::O:
 	{
-		_invoker->executeCommand(std::make_shared<OpenFileCommand>());
+		_invoker->executeCommand(makeOpenFileCommand());
 		break;
 	}
 	case rendell_ui::InputKey::S:

@@ -2,6 +2,7 @@
 #include <memory>
 #include <stack>
 #include "Command.h"
+#include "../../defines.h"
 
 class Invoker
 {
@@ -17,4 +18,4 @@ private:
 
 };
 
-typedef std::shared_ptr<Invoker> InvokerSharedPtr;
+DECLARE_SHARED_PTR_FACTORY(Invoker)

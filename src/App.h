@@ -26,6 +26,6 @@ private:
 
 	rendell_ui::WindowSharedPtr _mainWindow;
 	rendell_ui::ViewportSharedPtr _viewport;
-	CanvasSharedPtr _canvas;
+	EditorCanvasSharedPtr _canvas;
 	InvokerSharedPtr _invoker;
 };

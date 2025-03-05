@@ -28,13 +28,13 @@ App::App()
 		return;
 	}
 	setupViewport();
-	_renderer = std::make_shared<Renderer>(_viewport);
-	_canvas = std::make_shared<Canvas>(_viewport);
+	_renderer = makeRenderer(_viewport);
+	_canvas = makeEditorCanvas(_viewport);
 	_mainWindow->setEventHandler(_canvas);
 
-	_invoker = std::make_shared<Invoker>();
+	_invoker = makeInvoker();
 
-	_hotkeyHandler = std::make_shared<HotkeyHandler>();
+	_hotkeyHandler = makeHotkeyHandler();
 	_hotkeyHandler->setInvoker(_invoker);
 
 	Editor::init(_canvas);
@@ -110,6 +110,6 @@ bool App::initRendellUI()
 
 void App::setupViewport()
 {
-	_viewport = std::make_shared<rendell_ui::Viewport>();
+	_viewport = rendell_ui::makeViewport();
 	rendell_ui::Viewport::setCurrent(_viewport);
 }

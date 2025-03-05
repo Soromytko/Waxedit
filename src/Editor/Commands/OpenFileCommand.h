@@ -1,5 +1,6 @@
 #pragma once
 #include "NotStackableCommand.h"
+#include "../../defines.h"
 
 class OpenFileCommand final : public NotStackableCommand
 {
@@ -10,4 +11,4 @@ public:
 	~OpenFileCommand() = default;
 };
 
-typedef std::shared_ptr<OpenFileCommand> OpenFileCommandSharedPtr;
+DECLARE_SHARED_PTR_FACTORY(OpenFileCommand)

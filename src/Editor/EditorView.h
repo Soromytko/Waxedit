@@ -6,14 +6,15 @@
 #include "../Canvas.h"
 #include "EditorPresenter.h"
 #include "EditorModel.h"
+#include "../defines.h"
 
 class EditorView final : public IEditorView
 {
 public:
-	EditorView(CanvasSharedPtr canvas);
+	EditorView(EditorCanvasSharedPtr canvas);
 	~EditorView() = default;
 
-	CanvasSharedPtr getCanvas() const;
+	EditorCanvasSharedPtr getCanvas() const;
 	EditorPresenterSharedPtr getPresenter() const;
 
 	void setPresenter(EditorPresenterSharedPtr presenter);
@@ -25,16 +26,10 @@ private:
 	rendell_ui::TextEditWidget* createTextEdit(rendell_ui::Widget* parent, const std::wstring& text) const;
 
 	EditorPresenterSharedPtr _presenter;
-	CanvasSharedPtr _canvas;
-	rendell_ui::RectangleSharedPtr _rootWidget;
+	EditorCanvasSharedPtr _canvas;
+	rendell_ui::RectangleWidgetSharedPtr _rootWidget;
 
 	std::unordered_map<std::wstring, rendell_ui::TextEditWidget*> _documents;
 };
 
-typedef std::shared_ptr<EditorView> EditorViewSharedPtr;
-
-template <typename... Args>
-EditorViewSharedPtr makeEditorView(Args&&... args)
-{
-	return std::make_shared<EditorView>(std::forward<Args>(args)...);
-}
+DECLARE_SHARED_PTR_FACTORY(EditorView)

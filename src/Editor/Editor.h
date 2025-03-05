@@ -9,14 +9,14 @@
 class Editor final
 {
 private:
-	Editor(CanvasSharedPtr canvas);
+	Editor(EditorCanvasSharedPtr canvas);
 
 public:
 	~Editor() = default;
 
-	CanvasSharedPtr getCanvas() const;
+	EditorCanvasSharedPtr getCanvas() const;
 
-	static bool init(CanvasSharedPtr canvas);
+	static bool init(EditorCanvasSharedPtr canvas);
 	static void release();
 	static Editor* getInstance();
 
