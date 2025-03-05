@@ -52,5 +52,6 @@ target_link_libraries(${EXE_NAME} glm)
 # Rendell-ui
 set(GLM_LIB glm)
 set(RENDELL_LIB rendell)
+set(RENDELL_UI_FONT_PATH ${CMAKE_SOURCE_DIR}/res/Fonts/mononoki/mononoki-Regular.ttf)
 add_subdirectory(rendell-ui)
 target_link_libraries(${EXE_NAME} rendell_ui)
