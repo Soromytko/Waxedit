@@ -23,13 +23,13 @@ public:
 	void removeDocument(const std::wstring& name) override;
 
 private:
-	rendell_ui::TextEditWidget* createTextEdit(rendell_ui::Widget* parent, const std::wstring& text) const;
+	rendell_ui::TextEditWidgetSharedPtr createTextEdit(rendell_ui::WidgetWeakPtr parent, const std::wstring& text) const;
 
 	EditorPresenterSharedPtr _presenter;
 	EditorCanvasSharedPtr _canvas;
 	rendell_ui::RectangleWidgetSharedPtr _rootWidget;
 
-	std::unordered_map<std::wstring, rendell_ui::TextEditWidget*> _documents;
+	std::unordered_map<std::wstring, rendell_ui::TextEditWidgetSharedPtr> _documents;
 };
 
 DECLARE_SHARED_PTR_FACTORY(EditorView)

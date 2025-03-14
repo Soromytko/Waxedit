@@ -7,7 +7,7 @@
 EditorView::EditorView(EditorCanvasSharedPtr canvas) :
 	_canvas(canvas), _presenter(nullptr)
 {
-	_rootWidget = rendell_ui::makeRectangleWidget();
+	_rootWidget = rendell_ui::createRectangleWidget();
 	_rootWidget->setColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
 	_rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
 	_canvas->addWidget(_rootWidget);
@@ -47,12 +47,12 @@ void EditorView::addDocument(const std::wstring& name, const std::wstring& text)
 	// TODO: Load data into the first document.
 	if (!_documents.empty())
 	{
-		rendell_ui::TextEditWidget* textWidget = _documents.begin()->second;
+		rendell_ui::TextEditWidgetSharedPtr textWidget = _documents.begin()->second;
 		textWidget->setText(text);
 		return;
 	}
 
-	rendell_ui::TextEditWidget* document = createTextEdit(_rootWidget.get(), text);
+	rendell_ui::TextEditWidgetSharedPtr document = createTextEdit(_rootWidget, text);
 	_documents.insert({ name, document });
 }
 
@@ -64,13 +64,13 @@ void EditorView::removeDocument(const std::wstring& name)
 		return;
 	}
 
-	delete it->second;
+	release_widget(it->second);
 	_documents.erase(name);
 }
 
-rendell_ui::TextEditWidget* EditorView::createTextEdit(rendell_ui::Widget* parent, const std::wstring& text) const
+rendell_ui::TextEditWidgetSharedPtr EditorView::createTextEdit(rendell_ui::WidgetWeakPtr parent, const std::wstring& text) const
 {
-	rendell_ui::TextEditWidget* result = new rendell_ui::TextEditWidget(parent);
+	rendell_ui::TextEditWidgetSharedPtr result = rendell_ui::createTextEditWidget(parent);
 	result->setAnchor(rendell_ui::Anchor::centerStretch);
 	result->setText(text);
 	return result;
