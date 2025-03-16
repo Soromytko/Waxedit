@@ -20,6 +20,7 @@ set(SOURCE_FILE_PATHS
     src/Editor/Document.cpp
     src/Editor/Commands/Invoker.cpp
     src/Editor/Commands/OpenFileCommand.cpp
+    src/Editor/Commands/SaveDocumentsCommand.cpp
 )
 
 set(HEADERS
@@ -39,6 +40,7 @@ set(HEADERS
     src/Editor/Commands/Command.h
     src/Editor/Commands/NotStackableCommand.h
     src/Editor/Commands/OpenFileCommand.h
+    src/Editor/Commands/SaveDocumentsCommand.h
 
     src/defines.h
     src/file_dialog.h

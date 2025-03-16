@@ -20,9 +20,12 @@ public:
 	void setModel(EditorModelSharedPtr model);
 
 	bool loadDocument(const std::filesystem::path& path);
+	bool saveAllDocuments();
 
 	void onDocumentAdded(const std::wstring& name, const std::wstring& content) override;
 	void onDocumentRemoved(const std::wstring& name) override;
+
+	void updateDocuments();
 
 private:
 	IEditorViewWeakPtr _view;

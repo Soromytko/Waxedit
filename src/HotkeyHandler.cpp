@@ -1,5 +1,6 @@
 #include "HotkeyHandler.h"
 #include "Editor/Commands/OpenFileCommand.h"
+#include "Editor/Commands/SaveDocumentsCommand.h"
 
 void HotkeyHandler::handle(const rendell_ui::KeyboardInput& keyboardInput)
 {
@@ -35,7 +36,7 @@ void HotkeyHandler::handleCtrlHotkeys(rendell_ui::InputKey key)
 	}
 	case rendell_ui::InputKey::S:
 	{
-		std::cout << "Hotkey inputted: Ctrl + S" << std::endl;
+		_invoker->executeCommand(makeSaveDocumentsCommand());
 		break;
 	}
 	}

@@ -62,3 +62,9 @@ bool Editor::closeDocument(const std::string& name)
 {
 	return false;
 }
+
+bool Editor::saveAllDocuments()
+{
+	_presenter->updateDocuments();
+	return _presenter->saveAllDocuments();
+}

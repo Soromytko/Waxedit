@@ -32,6 +32,16 @@ EditorPresenterSharedPtr EditorView::getPresenter() const
 	return _presenter;
 }
 
+const std::wstring& EditorView::getDocumentContent(const std::wstring& name) const
+{
+	auto it = _documents.find(name);
+	if (it == _documents.end())
+	{
+		return {};
+	}
+	return it->second->getText();
+}
+
 void EditorView::setPresenter(EditorPresenterSharedPtr presenter)
 {
 	_presenter = presenter;
@@ -48,6 +58,8 @@ void EditorView::addDocument(const std::wstring& name, const std::wstring& text)
 	if (!_documents.empty())
 	{
 		rendell_ui::TextEditWidgetSharedPtr textWidget = _documents.begin()->second;
+		_documents.clear();
+		_documents.insert({ name, textWidget });
 		textWidget->setText(text);
 		return;
 	}

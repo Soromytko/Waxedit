@@ -16,6 +16,7 @@ public:
 
 	EditorCanvasSharedPtr getCanvas() const;
 	EditorPresenterSharedPtr getPresenter() const;
+	const std::wstring& getDocumentContent(const std::wstring& name) const override;
 
 	void setPresenter(EditorPresenterSharedPtr presenter);
 

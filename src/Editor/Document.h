@@ -15,6 +15,8 @@ public:
 	const std::wstring& getContent() const;
 	bool hasChanges() const;
 
+	void setContent(std::wstring&& content);
+
 	bool save();
 
 private:

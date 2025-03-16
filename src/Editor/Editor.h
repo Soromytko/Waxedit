@@ -22,6 +22,7 @@ public:
 
 	bool openDocument(const std::filesystem::path& path);
 	bool closeDocument(const std::string& name);
+	bool saveAllDocuments();
 
 private:
 	EditorViewSharedPtr _view;

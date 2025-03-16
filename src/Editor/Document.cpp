@@ -30,9 +30,21 @@ bool Document::hasChanges() const
 	return false;
 }
 
+void Document::setContent(std::wstring&& content)
+{
+	_content = std::move(content);
+}
+
 bool Document::save()
 {
-	return false;
+	std::wofstream file(_path);
+	if (!file.is_open())
+	{
+		return false;
+	}
+	file << _content;
+	file.close();
+	return true;
 }
 
 bool Document::loadFile(std::wstring& result)
