@@ -37,7 +37,8 @@ const std::wstring& EditorView::getDocumentContent(const std::wstring& name) con
 	auto it = _documents.find(name);
 	if (it == _documents.end())
 	{
-		return {};
+		static const std::wstring emptyString;
+		return emptyString;
 	}
 	return it->second->getText();
 }
