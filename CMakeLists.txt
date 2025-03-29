@@ -21,6 +21,7 @@ set(SOURCE_FILE_PATHS
     src/Editor/Commands/Invoker.cpp
     src/Editor/Commands/OpenFileCommand.cpp
     src/Editor/Commands/SaveDocumentsCommand.cpp
+    src/View/CodeEditorWidget.cpp
 )
 
 set(HEADERS
@@ -41,6 +42,7 @@ set(HEADERS
     src/Editor/Commands/NotStackableCommand.h
     src/Editor/Commands/OpenFileCommand.h
     src/Editor/Commands/SaveDocumentsCommand.h
+    src/View/CodeEditorWidget.h
 
     src/defines.h
     src/file_dialog.h
