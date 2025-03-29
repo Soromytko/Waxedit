@@ -1,4 +1,4 @@
-#include "../file_dialog.h"
+#include <file_dialog.h>
 #include <iostream>
 #include <Windows.h>
 

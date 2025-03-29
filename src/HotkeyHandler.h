@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include <rendell_ui/rendell_ui.h>
+#include <defines.h>
 #include "Editor/Commands/Invoker.h"
-#include "defines.h"
 
 class HotkeyHandler
 {

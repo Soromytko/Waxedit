@@ -1,4 +1,4 @@
-#include "EditorModel.h"
+#include <Model/EditorModel.h>
 #include <iostream>
 
 const std::vector<std::wstring>& EditorModel::getDocumentNames() const

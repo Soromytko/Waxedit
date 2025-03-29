@@ -1,7 +1,7 @@
 #include "OpenFileCommand.h"
-#include "../Editor.h"
-#include "../../file_dialog.h"
+#include <file_dialog.h>
 #include <iostream>
+#include "../Editor.h"
 
 bool OpenFileCommand::execute()
 {

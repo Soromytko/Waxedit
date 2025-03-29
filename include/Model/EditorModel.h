@@ -5,7 +5,7 @@
 #include <filesystem>
 #include "EditorModelObserver.h"
 #include "Document.h"
-#include "../defines.h"
+#include "defines.h"
 
 class EditorModel final
 {

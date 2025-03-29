@@ -1,4 +1,4 @@
-#include "EditorPresenter.h"
+#include <Presenter/EditorPresenter.h>
 
 IEditorViewWeakPtr EditorPresenter::getView() const
 {

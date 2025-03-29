@@ -14,36 +14,40 @@ set(SOURCE_FILE_PATHS
     src/Canvas.cpp
     src/HotkeyHandler.cpp
     src/Editor/Editor.cpp
-    src/Editor/EditorModel.cpp
-    src/Editor/EditorView.cpp
-    src/Editor/EditorPresenter.cpp
-    src/Editor/Document.cpp
     src/Editor/Commands/Invoker.cpp
     src/Editor/Commands/OpenFileCommand.cpp
     src/Editor/Commands/SaveDocumentsCommand.cpp
+
+    # MVP
+    src/Model/EditorModel.cpp
+    src/Model/Document.cpp
+    src/View/EditorView.cpp
+    src/Presenter/EditorPresenter.cpp
 )
 
 set(HEADERS
+    include/defines.h
+    include/file_dialog.h
+
+    #MVP
+    include/Model/Document.h
+    include/Model/EditorModel.h
+    include/Model/EditorModelObserver.h
+    include/View/IEditorView.h
+    include/View/EditorView.h
+    include/Presenter/EditorPresenter.h
+
     src/App.h
     src/IRenderer.h
     src/Renderer.h
     src/Canvas.h
     src/HotkeyHandler.h
     src/Editor/Editor.h
-    src/Editor/EditorModel.h
-    src/Editor/EditorModelObserver.h
-    src/Editor/IEditorView.h
-    src/Editor/EditorView.h
-    src/Editor/EditorPresenter.h
-    src/Editor/Document.h
     src/Editor/Commands/Invoker.h
     src/Editor/Commands/Command.h
     src/Editor/Commands/NotStackableCommand.h
     src/Editor/Commands/OpenFileCommand.h
     src/Editor/Commands/SaveDocumentsCommand.h
-
-    src/defines.h
-    src/file_dialog.h
 )
 
 set(WINDOWS_SOURCES
@@ -54,6 +58,7 @@ set(LINUX_SOURCES
     src/Platform/linux_file_dialog.cpp
 )
 
+include_directories(include)
 add_executable(${EXE_NAME} ${SOURCE_FILE_PATHS} ${HEADERS})
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")

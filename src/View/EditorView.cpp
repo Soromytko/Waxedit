@@ -1,4 +1,4 @@
-#include "EditorView.h"
+#include <View/EditorView.h>
 
 #define FONT_WIDTH 32.0f
 #define FONT_HEIGHT 32.0f

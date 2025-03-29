@@ -2,11 +2,11 @@
 #include <memory>
 #include <unordered_map>
 #include <rendell_ui/rendell_ui.h>
+#include <defines.h>
+#include <Presenter/EditorPresenter.h>
+#include <Model/EditorModel.h>
 #include "IEditorView.h"
-#include "../Canvas.h"
-#include "EditorPresenter.h"
-#include "EditorModel.h"
-#include "../defines.h"
+#include "../src/Canvas.h"
 
 class EditorView final : public IEditorView
 {

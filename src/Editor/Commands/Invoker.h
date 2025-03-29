@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include <stack>
+#include <defines.h>
 #include "Command.h"
-#include "../../defines.h"
 
 class Invoker
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "../../defines.h"
+#include <defines.h>
 
 class Command
 {

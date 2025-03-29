@@ -2,10 +2,10 @@
 #include <memory>
 #include <set>
 #include <filesystem>
-#include "IEditorView.h"
-#include "EditorModel.h"
-#include "Document.h"
-#include "../defines.h"
+#include <View/IEditorView.h>
+#include <Model/EditorModel.h>
+#include <Model/Document.h>
+#include <defines.h>
 
 class EditorPresenter final : public EditorModelObserver
 {

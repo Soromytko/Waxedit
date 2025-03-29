@@ -2,9 +2,9 @@
 #include <map>
 #include <filesystem>
 #include <utility>
-#include "Document.h"
+#include <Model/Document.h>
+#include <View/EditorView.h>
 #include "../Canvas.h"
-#include "EditorView.h"
 
 class Editor final
 {

@@ -1,6 +1,6 @@
 #pragma once
+#include <defines.h>
 #include "NotStackableCommand.h"
-#include "../../defines.h"
 
 class OpenFileCommand final : public NotStackableCommand
 {

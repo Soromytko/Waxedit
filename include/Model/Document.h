@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 #include <filesystem>
-#include "../defines.h"
+#include "defines.h"
 
 class Document final
 {

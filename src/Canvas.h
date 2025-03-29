@@ -2,7 +2,7 @@
 #include <memory>
 #include <functional>
 #include <rendell_ui/rendell_ui.h>
-#include "defines.h"
+#include <defines.h>
 #include "HotkeyHandler.h"
 
 class EditorCanvas;
