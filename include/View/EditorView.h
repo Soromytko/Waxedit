@@ -6,6 +6,7 @@
 #include <Presenter/EditorPresenter.h>
 #include <Model/EditorModel.h>
 #include "IEditorView.h"
+#include "Widgets/CodeEditorWidget.h"
 #include "../src/Canvas.h"
 
 class EditorView final : public IEditorView
@@ -24,13 +25,13 @@ public:
 	void removeDocument(const std::wstring& name) override;
 
 private:
-	rendell_ui::TextEditWidgetSharedPtr createTextEdit(rendell_ui::WidgetWeakPtr parent, const std::wstring& text) const;
+	CodeEditorWidgetSharedPtr createTextEdit(rendell_ui::WidgetWeakPtr parent, const std::wstring& text) const;
 
 	EditorPresenterSharedPtr _presenter;
 	EditorCanvasSharedPtr _canvas;
 	rendell_ui::RectangleWidgetSharedPtr _rootWidget;
 
-	std::unordered_map<std::wstring, rendell_ui::TextEditWidgetSharedPtr> _documents;
+	std::unordered_map<std::wstring, CodeEditorWidgetSharedPtr> _documents;
 };
 
 DECLARE_SHARED_PTR_FACTORY(EditorView)

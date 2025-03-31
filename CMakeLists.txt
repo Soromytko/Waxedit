@@ -22,6 +22,8 @@ set(SOURCE_FILE_PATHS
     src/Model/EditorModel.cpp
     src/Model/Document.cpp
     src/View/EditorView.cpp
+    src/View/Widgets/CodeEditorWidget.cpp
+    src/View/Widgets/LineNumberingWidget.cpp
     src/Presenter/EditorPresenter.cpp
 )
 
@@ -35,6 +37,8 @@ set(HEADERS
     include/Model/EditorModelObserver.h
     include/View/IEditorView.h
     include/View/EditorView.h
+    include/View/Widgets/CodeEditorWidget.h
+    include/View/Widgets/LineNumberingWidget.h
     include/Presenter/EditorPresenter.h
 
     src/App.h
@@ -66,6 +70,11 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_sources(${EXE_NAME} PRIVATE ${LINUX_SOURCES})
 endif()
+
+target_compile_definitions(${EXE_NAME}
+    PRIVATE
+        "FONT_ROOT_DIRECTORY=\"${CMAKE_SOURCE_DIR}/res/Fonts/\""
+)
 
 # Rendell
 add_subdirectory(rendell)
