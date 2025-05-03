@@ -12,19 +12,19 @@ App::App()
 	if (!tryCreateMainWindow())
 	{
 		std::cout << "Failed to create main window" << std::endl;
-		_result = -1;
+		exit(-1);
 		return;
 	}
 	if (!initRendell())
 	{
 		std::cout << "Failed to initialize graphical api" << std::endl;
-		_result = -1;
+		exit(-1);
 		return;
 	}
 	if (!initRendellUI())
 	{
 		std::cout << "Failed to initialize Rendell-UI" << std::endl;
-		_result = -1;
+		exit(-1);
 		return;
 	}
 	setupViewport();
@@ -62,7 +62,7 @@ int App::run()
 	_canvas->setRefreshedCallback([renderer, window](int width, int height) {
 		renderer->startFrame();
 		renderer->render();
-		window->swapBuffers();
+		rendell::swapBuffers();
 		renderer->endFrame();
 		});
 
@@ -70,7 +70,7 @@ int App::run()
 	{
 		_renderer->startFrame();
 		_renderer->render();
-		_mainWindow->swapBuffers();
+		rendell::swapBuffers();
 		_mainWindow->processEvents();
 		_renderer->endFrame();
 		_renderer->cooldown();
@@ -86,21 +86,23 @@ bool App::tryCreateMainWindow()
 	{
 		return false;
 	}
-	_mainWindow->makeContextCurrent();
 	return true;
 }
 
 bool App::initRendell()
 {
 	rendell::Initer initer;
-	initer.context = reinterpret_cast<void*>(glfwGetProcAddress);
-	const bool result = rendell::init(initer);
-	if (result)
+	initer.nativeWindowHandle = _mainWindow->getNativeWindowHandle();
+#if defined(__linux__)
+	initer.x11Display = _mainWindow->getX11Display();
+#endif
+	if (rendell::init(initer))
 	{
 		rendell::setPixelUnpackAlignment(1);
 		rendell::setClearBits(rendell::colorBufferBit | rendell::depthBufferBit);
+		return true;
 	}
-	return result;
+	return false;
 }
 
 bool App::initRendellUI()
