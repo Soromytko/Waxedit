@@ -30,6 +30,8 @@ private:
 	EditorPresenterSharedPtr _presenter;
 	EditorCanvasSharedPtr _canvas;
 	rendell_ui::RectangleWidgetSharedPtr _rootWidget;
+	rendell_ui::TabBarWidgetSharedPtr _tabBar;
+	rendell_ui::PageViewerWidgetSharedPtr _pageViewer;
 
 	std::unordered_map<std::wstring, CodeEditorWidgetSharedPtr> _documents;
 };

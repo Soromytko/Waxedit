@@ -4,21 +4,33 @@
 #define FONT_HEIGHT 32.0f
 #define BACKGROUND_COLOR 31.0f / 255.0
 
-EditorView::EditorView(EditorCanvasSharedPtr canvas) :
-	_canvas(canvas), _presenter(nullptr)
-{
-	_rootWidget = rendell_ui::createRectangleWidget();
-	_rootWidget->setColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
-	_rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
-	_canvas->addWidget(_rootWidget);
-	addDocument(L"Some", LR"(#include <iostream>
+#define HELLO_WORLD_SRC \
+LR"(#include <iostream>
 
 int main()
 {
     std::cout << "Hello World!" << std::endl;
     return 0;
 }
-	)");
+)"
+
+EditorView::EditorView(EditorCanvasSharedPtr canvas) :
+	_canvas(canvas), _presenter(nullptr)
+{
+	_rootWidget = rendell_ui::createRectangleWidget();
+	_rootWidget->setColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
+	_rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
+	_rootWidget->setName("RootWidget");
+	_canvas->addWidget(_rootWidget);
+
+	_pageViewer = rendell_ui::createPageViewerWidget(_rootWidget);
+	_pageViewer->setAnchor(rendell_ui::Anchor::centerStretch);
+	_tabBar = rendell_ui::createTabBarWidget(_rootWidget);
+	_tabBar->currentIndexChanged.connect([&](int index) { _pageViewer->setCurrentIndex(index); });
+	_pageViewer->setMargins(rendell_ui::Margins{ 0.0f, 0.0f, 0.0f, _tabBar->getSize().y });
+
+	addDocument(L"New Document", HELLO_WORLD_SRC);
+
 	_canvas->focusWidget(_documents.begin()->second);
 }
 
@@ -55,18 +67,14 @@ void EditorView::addDocument(const std::wstring& name, const std::wstring& text)
 		return;
 	}
 
-	// TODO: Load data into the first document.
-	if (!_documents.empty())
-	{
-		CodeEditorWidgetSharedPtr textWidget = _documents.begin()->second;
-		_documents.clear();
-		_documents.insert({ name, textWidget });
-		textWidget->setText(text);
-		return;
-	}
-
-	CodeEditorWidgetSharedPtr document = createTextEdit(_rootWidget, text);
+	CodeEditorWidgetSharedPtr document = createTextEdit(_pageViewer, text);
+	document->setAnchor(rendell_ui::Anchor::centerStretch);
 	_documents.insert({ name, document });
+
+	_pageViewer->addPage(document);
+	const auto model = _tabBar->getModel();
+	model->addItem(name);
+	_tabBar->setCurrentIndex(static_cast<int>(model->getSize()) - 1);
 }
 
 void EditorView::removeDocument(const std::wstring& name)
