@@ -17,6 +17,7 @@ set(SOURCE_FILE_PATHS
     src/Editor/Commands/Invoker.cpp
     src/Editor/Commands/OpenFileCommand.cpp
     src/Editor/Commands/SaveDocumentsCommand.cpp
+    src/Editor/Commands/CloseCurrentDocumentCommand.cpp
 
     # MVP
     src/Model/EditorModel.cpp
@@ -52,6 +53,7 @@ set(HEADERS
     src/Editor/Commands/NotStackableCommand.h
     src/Editor/Commands/OpenFileCommand.h
     src/Editor/Commands/SaveDocumentsCommand.h
+    src/Editor/Commands/CloseCurrentDocumentCommand.h
 )
 
 set(WINDOWS_SOURCES

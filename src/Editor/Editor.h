@@ -15,13 +15,15 @@ public:
 	~Editor() = default;
 
 	EditorCanvasSharedPtr getCanvas() const;
+	const std::wstring& getCurrentDocumentName() const;
+	size_t getOpenedDocumentCount() const;
 
 	static bool init(EditorCanvasSharedPtr canvas);
 	static void release();
 	static Editor* getInstance();
 
 	bool openDocument(const std::filesystem::path& path);
-	bool closeDocument(const std::string& name);
+	bool closeDocument(const std::wstring& name);
 	bool saveAllDocuments();
 
 private:

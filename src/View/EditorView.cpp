@@ -44,6 +44,34 @@ EditorPresenterSharedPtr EditorView::getPresenter() const
 	return _presenter;
 }
 
+size_t EditorView::getDocumentCount() const
+{
+	return _documents.size();
+}
+
+const std::wstring& EditorView::getCurrentDocumentName() const
+{
+	const auto index = _pageViewer->getCurrentIndex();
+	if (index >= 0)
+	{
+		const rendell_ui::WidgetSharedPtr maybeDocument = _pageViewer->getPages()[index];
+		const CodeEditorWidgetSharedPtr document = std::dynamic_pointer_cast<CodeEditorWidget>(maybeDocument);
+		if (document)
+		{
+			for (auto it = _documents.begin(); it != _documents.end(); it++)
+			{
+				if (document == it->second)
+				{
+					return it->first;
+				}
+			}
+		}
+	}
+
+	static std::wstring empty;
+	return empty;
+}
+
 const std::wstring& EditorView::getDocumentContent(const std::wstring& name) const
 {
 	auto it = _documents.find(name);
@@ -77,16 +105,29 @@ void EditorView::addDocument(const std::wstring& name, const std::wstring& text)
 	_tabBar->setCurrentIndex(static_cast<int>(model->getSize()) - 1);
 }
 
-void EditorView::removeDocument(const std::wstring& name)
+bool EditorView::removeDocument(const std::wstring& name)
 {
 	auto it = _documents.find(name);
 	if (it == _documents.end())
 	{
-		return;
+		return false;
 	}
+
+	const rendell_ui::StringListModelSharedPtr& tabModel = _tabBar->getModel();
+	const auto& tabNames = tabModel->getData();
+	auto tabNamesIt = std::find(tabNames.begin(), tabNames.end(), name);
+	if (tabNamesIt == tabNames.end())
+	{
+		return false;
+	}
+	const std::size_t tabIndex = std::distance(tabNames.begin(), tabNamesIt);
+
+	tabModel->removeItem(tabIndex);
+	_pageViewer->removePage(tabIndex);
 
 	release_widget(it->second);
 	_documents.erase(name);
+	return true;
 }
 
 CodeEditorWidgetSharedPtr EditorView::createTextEdit(rendell_ui::WidgetWeakPtr parent, const std::wstring& text) const

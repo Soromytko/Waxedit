@@ -17,12 +17,14 @@ public:
 
 	EditorCanvasSharedPtr getCanvas() const;
 	EditorPresenterSharedPtr getPresenter() const;
+	size_t getDocumentCount() const override;
+	const std::wstring& getCurrentDocumentName() const override;
 	const std::wstring& getDocumentContent(const std::wstring& name) const override;
 
 	void setPresenter(EditorPresenterSharedPtr presenter);
 
 	void addDocument(const std::wstring& name, const std::wstring& text) override;
-	void removeDocument(const std::wstring& name) override;
+	bool removeDocument(const std::wstring& name) override;
 
 private:
 	CodeEditorWidgetSharedPtr createTextEdit(rendell_ui::WidgetWeakPtr parent, const std::wstring& text) const;

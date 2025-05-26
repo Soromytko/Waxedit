@@ -1,6 +1,7 @@
 #include "HotkeyHandler.h"
 #include "Editor/Commands/OpenFileCommand.h"
 #include "Editor/Commands/SaveDocumentsCommand.h"
+#include "Editor/Commands/CloseCurrentDocumentCommand.h"
 
 void HotkeyHandler::handle(const rendell_ui::KeyboardInput& keyboardInput)
 {
@@ -37,6 +38,11 @@ void HotkeyHandler::handleCtrlHotkeys(rendell_ui::InputKey key)
 	case rendell_ui::InputKey::S:
 	{
 		_invoker->executeCommand(makeSaveDocumentsCommand());
+		break;
+	}
+	case rendell_ui::InputKey::W:
+	{
+		_invoker->executeCommand(makeCloseCurrentDocumentCommand());
 		break;
 	}
 	}

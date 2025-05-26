@@ -27,6 +27,16 @@ EditorCanvasSharedPtr Editor::getCanvas() const
 	return _view->getCanvas();
 }
 
+const std::wstring& Editor::getCurrentDocumentName() const
+{
+	return _view->getCurrentDocumentName();
+}
+
+size_t Editor::getOpenedDocumentCount() const
+{
+	return _view->getDocumentCount();
+}
+
 bool Editor::init(EditorCanvasSharedPtr canvas)
 {
 	assert(s_instance == nullptr);
@@ -58,9 +68,9 @@ bool Editor::openDocument(const std::filesystem::path& path)
 	return _presenter->loadDocument(path);;
 }
 
-bool Editor::closeDocument(const std::string& name)
+bool Editor::closeDocument(const std::wstring& name)
 {
-	return false;
+	return _view->removeDocument(name);
 }
 
 bool Editor::saveAllDocuments()
