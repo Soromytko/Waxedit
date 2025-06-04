@@ -14,6 +14,8 @@ Renderer::~Renderer()
 
 void Renderer::startFrame()
 {
+	rendell_ui::startFrame();
+
 	_frameStartTimePoint = Clock::now();
 }
 
@@ -23,6 +25,8 @@ void Renderer::endFrame()
 	_deltaTime = std::chrono::duration<double>(_frameEndTimePoint - _frameStartTimePoint).count();
 	_sleepTime = _targetFrameTime - _deltaTime;
 	_fps = static_cast<int>(1.0 / (_deltaTime + _sleepTime));
+
+	rendell_ui::endFrame();
 }
 
 #ifdef _WIN32
@@ -70,4 +74,6 @@ void Renderer::render() const
 	rendell::clearColor(0.0f, 0.0f, 0.0f, 1);
 
 	rendell_ui::draw();
+	
+	rendell::swapBuffers();
 }

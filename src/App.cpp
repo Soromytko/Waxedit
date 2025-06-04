@@ -62,7 +62,6 @@ int App::run()
 	_canvas->setRefreshedCallback([renderer, window](int width, int height) {
 		renderer->startFrame();
 		renderer->render();
-		rendell::swapBuffers();
 		renderer->endFrame();
 		});
 
@@ -70,10 +69,9 @@ int App::run()
 	{
 		_renderer->startFrame();
 		_renderer->render();
-		rendell::swapBuffers();
 		_mainWindow->processEvents();
 		_renderer->endFrame();
-		_renderer->cooldown();
+		_mainWindow->waitEvent();
 	}
 
 	return _result;
