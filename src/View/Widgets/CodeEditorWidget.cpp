@@ -55,7 +55,7 @@ void CodeEditorWidget::onTextChanged()
 	_lineNumberingWidget->setLineCount(lineCount);
 }
 
-void CodeEditorWidget::onScrollProgressChanged(float scrollProgress)
+void CodeEditorWidget::onScrollProgressChanged(double scrollProgress)
 {
 	_lineNumberingWidget->setScrollProgress(scrollProgress);
 }

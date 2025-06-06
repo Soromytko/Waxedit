@@ -10,7 +10,7 @@ void LineNumberingWidget::draw() const
 	_textDrawer.draw(projectMat * viewMat, transformMat);
 }
 
-float LineNumberingWidget::getScrollProgress() const
+double LineNumberingWidget::getScrollProgress() const
 {
 	return _textDrawer.getScrollProgress();
 }
@@ -34,7 +34,7 @@ void LineNumberingWidget::setFontSize(glm::ivec2 value)
 	}
 }
 
-void LineNumberingWidget::setScrollProgress(float value)
+void LineNumberingWidget::setScrollProgress(double value)
 {
 	_textDrawer.setScrollProgress(value);
 }

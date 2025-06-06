@@ -18,13 +18,13 @@ private:
 	void onSelfWeakPtrChanged() override;
 
 	void onTextChanged();
-	void onScrollProgressChanged(float scrollProgress);
+	void onScrollProgressChanged(double scrollProgress);
 
 	rendell_ui::TextEditWidgetSharedPtr _textEditorWidget;
 	LineNumberingWidgetSharedPtr _lineNumberingWidget;
 
-	uint32_t _textChangedConnectionId;
-	uint32_t _scrollProgressChangedConnectionId;
+	rendell_ui::signal_connection_id_t _textChangedConnectionId;
+	rendell_ui::signal_connection_id_t _scrollProgressChangedConnectionId;
 	size_t _prevLineCount{ 0 };
 };
 

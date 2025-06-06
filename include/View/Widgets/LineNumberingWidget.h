@@ -9,11 +9,11 @@ public:
 	~LineNumberingWidget() = default;
 
 	void draw() const override;
-	float getScrollProgress() const;
+	double getScrollProgress() const;
 	glm::vec2 getFontSize() const;
 
 	void setFontSize(glm::ivec2 value);
-	void setScrollProgress(float value);
+	void setScrollProgress(double value);
 	void setLineCount(size_t value);
 
 private:
