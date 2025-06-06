@@ -1,5 +1,5 @@
 # What is Waxedit?
-This is a lightweight, fast and simple text editor. It contains the necessary functionality for comfortable text editing or writing simple scripts. Waxedit is considered to be cross-platform (at least Linux and Windows). However, at the moment, reliable support is provided only for Windows. 
+This is a lightweight, fast and simple text editor. It contains the necessary functionality for comfortable text editing or writing simple scripts. Waxedit is considered to be cross-platform (at least Linux and Windows).
 
 # Demo
 ![demo](assets/Waxedit-demo.gif)
