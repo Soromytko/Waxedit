@@ -7,3 +7,9 @@
 [submodule "rendell-ui"]
 	path = rendell-ui
 	url = https://github.com/Soromytko/rendell-ui.git
+[submodule "LogX"]
+	path = LogX
+	url = https://github.com/Soromytko/LogX.git
+[submodule "rendell-text"]
+	path = rendell-text
+	url = https://github.com/Soromytko/rendell-text

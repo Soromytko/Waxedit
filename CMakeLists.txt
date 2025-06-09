@@ -78,6 +78,10 @@ target_compile_definitions(${EXE_NAME}
         "FONT_ROOT_DIRECTORY=\"${CMAKE_SOURCE_DIR}/res/Fonts/\""
 )
 
+# LogX
+add_subdirectory(logx)
+target_link_libraries(${EXE_NAME} logx)
+
 # Rendell
 add_subdirectory(rendell)
 target_link_libraries(${EXE_NAME} rendell)
@@ -86,9 +90,16 @@ target_link_libraries(${EXE_NAME} rendell)
 add_subdirectory(glm)
 target_link_libraries(${EXE_NAME} glm)
 
+# Rendell-text
+add_subdirectory(rendell-text)
+target_link_libraries(rendell_text PRIVATE glm)
+target_link_libraries(rendell_text PRIVATE rendell)
+
 # Rendell-ui
-set(GLM_LIB glm)
-set(RENDELL_LIB rendell)
 set(RENDELL_UI_FONT_ROOT_DIRECTORY ${CMAKE_SOURCE_DIR}/res/Fonts/)
 add_subdirectory(rendell-ui)
+target_link_libraries(rendell_ui rendell_text)
+target_link_libraries(rendell_ui glm)
+target_link_libraries(rendell_ui rendell)
+target_link_libraries(rendell_ui logx)
 target_link_libraries(${EXE_NAME} rendell_ui)
