@@ -1,15 +1,3 @@
-[submodule "glm"]
-	path = glm
-	url = https://github.com/g-truc/glm.git
-[submodule "Rendell"]
-	path = rendell
-	url = https://github.com/Soromytko/Rendell.git
-[submodule "rendell-ui"]
-	path = rendell-ui
-	url = https://github.com/Soromytko/rendell-ui.git
-[submodule "LogX"]
-	path = LogX
-	url = https://github.com/Soromytko/LogX.git
-[submodule "rendell-text"]
-	path = rendell-text
-	url = https://github.com/Soromytko/rendell-text
+[submodule "rendell-stuff"]
+	path = rendell-stuff
+	url = https://github.com/Soromytko/rendell-stuff.git
