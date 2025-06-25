@@ -17,11 +17,10 @@ int main()
 EditorView::EditorView(EditorCanvasSharedPtr canvas) :
 	_canvas(canvas), _presenter(nullptr)
 {
-	_rootWidget = rendell_ui::createRectangleWidget();
+	_rootWidget = rendell_ui::createRectangleWidget(_canvas->getRootWidget());
 	_rootWidget->setColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
 	_rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
 	_rootWidget->setName("RootWidget");
-	_canvas->addWidget(_rootWidget);
 
 	_pageViewer = rendell_ui::createPageViewerWidget(_rootWidget);
 	_pageViewer->setAnchor(rendell_ui::Anchor::centerStretch);
