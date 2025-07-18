@@ -9,23 +9,16 @@
 
 App::App()
 {
-	if (!tryCreateMainWindow())
+	_mainWindow = rendell_ui::makeWindow(600, 400, "Waxedit");
+	if (!_mainWindow->isInitialized())
 	{
 		std::cout << "Failed to create main window" << std::endl;
 		exit(-1);
-		return;
 	}
-	if (!initRendell())
-	{
-		std::cout << "Failed to initialize graphical api" << std::endl;
-		exit(-1);
-		return;
-	}
-	if (!initRendellUI())
+	if (!rendell_ui::init())
 	{
 		std::cout << "Failed to initialize Rendell-UI" << std::endl;
 		exit(-1);
-		return;
 	}
 	setupViewport();
 	_renderer = makeRenderer(_viewport);
@@ -75,37 +68,6 @@ int App::run()
 	}
 
 	return _result;
-}
-
-bool App::tryCreateMainWindow()
-{
-	_mainWindow = std::make_unique<rendell_ui::Window>(600, 400, "Waxedit");
-	if (!_mainWindow->isInitialized())
-	{
-		return false;
-	}
-	return true;
-}
-
-bool App::initRendell()
-{
-	rendell::Initer initer;
-	initer.nativeWindowHandle = _mainWindow->getNativeWindowHandle();
-#if defined(__linux__)
-	initer.x11Display = _mainWindow->getX11Display();
-#endif
-	if (rendell::init(initer))
-	{
-		rendell::setPixelUnpackAlignment(1);
-		rendell::setClearBits(rendell::colorBufferBit | rendell::depthBufferBit);
-		return true;
-	}
-	return false;
-}
-
-bool App::initRendellUI()
-{
-	return 	rendell_ui::init();
 }
 
 void App::setupViewport()

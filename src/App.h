@@ -13,10 +13,6 @@ public:
 	int run();
 
 private:
-	bool tryCreateMainWindow();
-	bool initRendell();
-	bool initRendellUI();
-
 	void setupViewport();
 
 	int _result{ 0 };
