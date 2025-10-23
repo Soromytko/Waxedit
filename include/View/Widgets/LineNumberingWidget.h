@@ -8,7 +8,7 @@ public:
 	LineNumberingWidget() = default;
 	~LineNumberingWidget() = default;
 
-	void draw() const override;
+	void draw() override;
 	double getScrollProgress() const;
 	glm::vec2 getFontSize() const;
 

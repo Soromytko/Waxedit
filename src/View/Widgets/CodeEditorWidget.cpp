@@ -22,7 +22,7 @@ CodeEditorWidget::~CodeEditorWidget()
 	_textEditorWidget->textChanged.disconnect(_textChangedConnectionId);
 }
 
-void CodeEditorWidget::draw() const
+void CodeEditorWidget::draw()
 {
 	_lineNumberingWidget->draw();
 }

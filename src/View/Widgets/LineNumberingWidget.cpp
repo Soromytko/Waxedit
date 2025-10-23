@@ -1,7 +1,7 @@
 #include <View/Widgets/LineNumberingWidget.h>
 #include <rendell_ui/Viewport.h>
 
-void LineNumberingWidget::draw() const
+void LineNumberingWidget::draw()
 {
 	const glm::mat4& projectMat = rendell_ui::Viewport::getCurrent()->getProjectMat();
 	const glm::mat4& viewMat = rendell_ui::Viewport::getCurrent()->getViewMat();

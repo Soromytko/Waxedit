@@ -16,11 +16,11 @@ private:
 	void setupViewport();
 
 	int _result{ 0 };
-	
+
 	IRendererSharedPtr _renderer;
 	HotkeyHandlerSharedPtr _hotkeyHandler;
 
-	rendell_ui::WindowSharedPtr _mainWindow;
+	rendell_ui::IWindow* _mainWindow;
 	rendell_ui::ViewportSharedPtr _viewport;
 	EditorCanvasSharedPtr _canvas;
 	InvokerSharedPtr _invoker;

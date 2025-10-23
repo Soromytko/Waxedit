@@ -8,7 +8,7 @@ public:
 	CodeEditorWidget();
 	~CodeEditorWidget();
 
-	void draw() const override;
+	void draw() override;
 
 	const std::wstring& getText() const;
 

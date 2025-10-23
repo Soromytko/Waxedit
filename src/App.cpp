@@ -9,17 +9,13 @@
 
 App::App()
 {
-	_mainWindow = rendell_ui::makeWindow(600, 400, "Waxedit");
-	if (!_mainWindow->isInitialized())
-	{
-		std::cout << "Failed to create main window" << std::endl;
-		exit(-1);
-	}
 	if (!rendell_ui::init())
 	{
 		std::cout << "Failed to initialize Rendell-UI" << std::endl;
 		exit(-1);
 	}
+	_mainWindow = rendell_ui::createWindow(600, 400, "Waxedit");
+
 	setupViewport();
 	_renderer = makeRenderer(_viewport);
 	_canvas = makeEditorCanvas(_viewport);
@@ -35,9 +31,13 @@ App::App()
 
 App::~App()
 {
-	rendell::release();
-	rendell_ui::release();
 	Editor::release();
+	_renderer.reset();
+	_hotkeyHandler.reset();
+	_viewport.reset();
+	_canvas.reset();
+	_invoker.reset();
+	rendell_ui::release();
 }
 
 int App::run()

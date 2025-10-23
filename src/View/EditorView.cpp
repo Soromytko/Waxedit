@@ -18,6 +18,12 @@ EditorView::EditorView(EditorCanvasSharedPtr canvas) :
 	_canvas(canvas), _presenter(nullptr)
 {
 	_rootWidget = rendell_ui::createRectangleWidget(_canvas->getRootWidget());
+	//auto rect = rendell_ui::createRectangleWidget(_rootWidget);
+	//auto text = rendell_ui::createTextWidget(rect);
+	//text->setText(HELLO_WORLD_SRC);
+	//text->setColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+	//return;
+
 	_rootWidget->setColor(glm::vec4(BACKGROUND_COLOR, BACKGROUND_COLOR, BACKGROUND_COLOR, 1.0f));
 	_rootWidget->setAnchor(rendell_ui::Anchor::centerStretch);
 	_rootWidget->setName("RootWidget");
