@@ -67,6 +67,10 @@ set(LINUX_SOURCES
 include_directories(include)
 add_executable(${EXE_NAME} ${SOURCE_FILE_PATHS} ${HEADERS})
 
+if(MSVC AND WIN32)
+    set_property(DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${EXE_NAME})
+endif()
+
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_sources(${EXE_NAME} PRIVATE ${WINDOWS_SOURCES})
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
