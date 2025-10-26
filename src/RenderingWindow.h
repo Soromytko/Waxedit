@@ -1,46 +1,45 @@
 #pragma once
-#include <rendell_ui/rendell_ui.h>
 #include "IRenderer.h"
-#include <memory>
 #include <chrono>
+#include <memory>
+#include <rendell_ui/rendell_ui.h>
 
-class RenderingWindow final : public rendell_ui::Window
-{
-	using Clock = std::chrono::high_resolution_clock;
-	using TimePoint = std::chrono::time_point<std::chrono::high_resolution_clock>;
+class RenderingWindow final : public rendell_ui::Window {
+    using Clock = std::chrono::high_resolution_clock;
+    using TimePoint = std::chrono::time_point<std::chrono::high_resolution_clock>;
 
 public:
-	RenderingWindow(int width, int height, const char* title);
-	~RenderingWindow() = default;
+    RenderingWindow(int width, int height, const char *title);
+    ~RenderingWindow() = default;
 
-	void startFrame();
-	void update();
-	void endFrame();
+    void startFrame();
+    void update();
+    void endFrame();
 
-	void setTargetFPS(uint32_t value);
-	void setViewport(rendell_ui::ViewportSharedPtr viewport);
-	void setRenderingContext(IRendererSharedPtr renderingContext);
+    void setTargetFPS(uint32_t value);
+    void setViewport(rendell_ui::ViewportSharedPtr viewport);
+    void setRenderingContext(IRendererSharedPtr renderingContext);
 
-	uint32_t getFPS() const;
-	uint32_t getTargetFPS() const;
-	double getDeltaTime() const;
-	const rendell_ui::ViewportSharedPtr getViewport() const;
-	const IRendererSharedPtr getRenderingContext() const;
+    uint32_t getFPS() const;
+    uint32_t getTargetFPS() const;
+    double getDeltaTime() const;
+    const rendell_ui::ViewportSharedPtr getViewport() const;
+    const IRendererSharedPtr getRenderingContext() const;
 
 private:
-	void cooldown(double sleepTime);
-	void onRefreshed() override;
+    void cooldown(double sleepTime);
+    void onRefreshed() override;
 
-	uint32_t _fps{ 0 };
-	uint32_t _targetFps{ 60 };
-	double _targetFrameTime{ 1.0 / _targetFps };
+    uint32_t _fps{0};
+    uint32_t _targetFps{60};
+    double _targetFrameTime{1.0 / _targetFps};
 
-	TimePoint _frameStartTimePoint{};
-	TimePoint _frameEndTimePoint{};
-	double _deltaTime{};
+    TimePoint _frameStartTimePoint{};
+    TimePoint _frameEndTimePoint{};
+    double _deltaTime{};
 
-	rendell_ui::ViewportSharedPtr _viewport{ nullptr };
-	IRendererSharedPtr _renderingContext{ nullptr };
+    rendell_ui::ViewportSharedPtr _viewport{nullptr};
+    IRendererSharedPtr _renderingContext{nullptr};
 };
 
 typedef std::unique_ptr<RenderingWindow> RenderingWindowUniquePtr;

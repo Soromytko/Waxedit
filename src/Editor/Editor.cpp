@@ -1,80 +1,70 @@
 #include "Editor.h"
-#include <iostream>
 #include <cassert>
 #include <fstream>
+#include <iostream>
 
-static Editor* s_instance{ nullptr };
+static Editor *s_instance{nullptr};
 
-Editor::Editor(EditorCanvasSharedPtr canvas)
-{
-	EditorModelSharedPtr model = makeEditorModel();
-	EditorPresenterSharedPtr presenter = makeEditorPresenter();
-	EditorViewSharedPtr view = makeEditorView(canvas);
+Editor::Editor(EditorCanvasSharedPtr canvas) {
+    EditorModelSharedPtr model = makeEditorModel();
+    EditorPresenterSharedPtr presenter = makeEditorPresenter();
+    EditorViewSharedPtr view = makeEditorView(canvas);
 
-	model->setObserver(presenter);
+    model->setObserver(presenter);
 
-	presenter->setModel(model);
-	presenter->setView(view);
+    presenter->setModel(model);
+    presenter->setView(view);
 
-	view->setPresenter(presenter);
+    view->setPresenter(presenter);
 
-	_view = view;
-	_presenter = presenter;
+    _view = view;
+    _presenter = presenter;
 }
 
-EditorCanvasSharedPtr Editor::getCanvas() const
-{
-	return _view->getCanvas();
+EditorCanvasSharedPtr Editor::getCanvas() const {
+    return _view->getCanvas();
 }
 
-const std::wstring& Editor::getCurrentDocumentName() const
-{
-	return _view->getCurrentDocumentName();
+const std::wstring &Editor::getCurrentDocumentName() const {
+    return _view->getCurrentDocumentName();
 }
 
-size_t Editor::getOpenedDocumentCount() const
-{
-	return _view->getDocumentCount();
+size_t Editor::getOpenedDocumentCount() const {
+    return _view->getDocumentCount();
 }
 
-bool Editor::init(EditorCanvasSharedPtr canvas)
-{
-	assert(s_instance == nullptr);
-	s_instance = new Editor(canvas);
-	return true;
+bool Editor::init(EditorCanvasSharedPtr canvas) {
+    assert(s_instance == nullptr);
+    s_instance = new Editor(canvas);
+    return true;
 }
 
-void Editor::release()
-{
-	assert(s_instance != nullptr);
-	delete s_instance;
-	s_instance = nullptr;
+void Editor::release() {
+    assert(s_instance != nullptr);
+    delete s_instance;
+    s_instance = nullptr;
 }
 
-Editor* Editor::getInstance()
-{
-	assert(s_instance != nullptr);
-	return s_instance;
+Editor *Editor::getInstance() {
+    assert(s_instance != nullptr);
+    return s_instance;
 }
 
-bool Editor::openDocument(const std::filesystem::path& path)
-{
-	if (path.empty())
-	{
-		std::cout << "ERROR::Editor: Path is empty" << std::endl;
-		return false;
-	}
+bool Editor::openDocument(const std::filesystem::path &path) {
+    if (path.empty()) {
+        std::cout << "ERROR::Editor: Path is empty" << std::endl;
+        return false;
+    }
 
-	return _presenter->loadDocument(path);;
+    return _presenter->loadDocument(path);
+    ;
 }
 
-bool Editor::closeDocument(const std::wstring& name)
-{
-	return _view->removeDocument(name);
+bool Editor::closeDocument(const std::wstring &name) {
+    return _view->removeDocument(name);
 }
 
-bool Editor::saveAllDocuments()
-{
-	_presenter->updateDocuments();
-	return _presenter->saveAllDocuments();
+bool Editor::saveAllDocuments() {
+    _presenter->updateDocuments();
+    return _presenter->saveAllDocuments();
 }

@@ -2,21 +2,15 @@
 #include "Command.h"
 #include <cassert>
 
-class NotStackableCommand : public Command
-{
+class NotStackableCommand : public Command {
 public:
-	NotStackableCommand() = default;
-	virtual ~NotStackableCommand() = default;
+    NotStackableCommand() = default;
+    virtual ~NotStackableCommand() = default;
 
-	bool isStackable() const override
-	{
-		return false;
-	}
+    bool isStackable() const override { return false; }
 
-	bool undo() override
-	{
-		assert(false);
-		return false;
-	}
-
+    bool undo() override {
+        assert(false);
+        return false;
+    }
 };

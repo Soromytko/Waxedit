@@ -1,15 +1,12 @@
 #pragma once
 #include <memory>
 
-class FileManager
-{
+class FileManager {
 public:
-	bool saveOpenedFile();
+    bool saveOpenedFile();
 
-	bool saveOpenedFileWithDialog();
-	bool openFileWithDialog();
-	
-
+    bool saveOpenedFileWithDialog();
+    bool openFileWithDialog();
 };
 
 typedef std::shared_ptr<FileManager> FileManagerSharedPtr;

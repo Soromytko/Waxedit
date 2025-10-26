@@ -1,20 +1,18 @@
 #pragma once
+#include <filesystem>
 #include <memory>
 #include <string>
-#include <filesystem>
 
-class EditorModelObserver
-{
+class EditorModelObserver {
 protected:
-	EditorModelObserver() = default;
+    EditorModelObserver() = default;
 
 public:
-	virtual void onDocumentAdded(const std::wstring& name, const std::wstring& content) {};
-	virtual void onDocumentRemoved(const std::wstring& name) {};
+    virtual void onDocumentAdded(const std::wstring &name, const std::wstring &content) {};
+    virtual void onDocumentRemoved(const std::wstring &name) {};
 
 public:
-	virtual ~EditorModelObserver() = default;
-
+    virtual ~EditorModelObserver() = default;
 };
 
 typedef std::weak_ptr<EditorModelObserver> EditorModelObserverWeakPtr;

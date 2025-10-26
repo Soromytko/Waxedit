@@ -1,7 +1,6 @@
 #include "SaveDocumentsCommand.h"
 #include "../Editor.h"
 
-bool SaveDocumentsCommand::execute()
-{
-	return Editor::getInstance()->saveAllDocuments();
+bool SaveDocumentsCommand::execute() {
+    return Editor::getInstance()->saveAllDocuments();
 }

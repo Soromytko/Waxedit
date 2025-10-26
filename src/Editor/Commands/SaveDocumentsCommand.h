@@ -1,13 +1,12 @@
 #pragma once
 #include "NotStackableCommand.h"
 
-class SaveDocumentsCommand final : public NotStackableCommand
-{
+class SaveDocumentsCommand final : public NotStackableCommand {
 public:
-	bool execute() override;
+    bool execute() override;
 
-	SaveDocumentsCommand() = default;
-	~SaveDocumentsCommand() = default;
+    SaveDocumentsCommand() = default;
+    ~SaveDocumentsCommand() = default;
 };
 
 DECLARE_SHARED_PTR_FACTORY(SaveDocumentsCommand)

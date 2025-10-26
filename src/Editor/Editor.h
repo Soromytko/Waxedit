@@ -1,33 +1,31 @@
 #pragma once
-#include <map>
-#include <filesystem>
-#include <utility>
+#include "../Canvas.h"
 #include <Model/Document.h>
 #include <View/EditorView.h>
-#include "../Canvas.h"
+#include <filesystem>
+#include <map>
+#include <utility>
 
-class Editor final
-{
+class Editor final {
 private:
-	Editor(EditorCanvasSharedPtr canvas);
+    Editor(EditorCanvasSharedPtr canvas);
 
 public:
-	~Editor() = default;
+    ~Editor() = default;
 
-	EditorCanvasSharedPtr getCanvas() const;
-	const std::wstring& getCurrentDocumentName() const;
-	size_t getOpenedDocumentCount() const;
+    EditorCanvasSharedPtr getCanvas() const;
+    const std::wstring &getCurrentDocumentName() const;
+    size_t getOpenedDocumentCount() const;
 
-	static bool init(EditorCanvasSharedPtr canvas);
-	static void release();
-	static Editor* getInstance();
+    static bool init(EditorCanvasSharedPtr canvas);
+    static void release();
+    static Editor *getInstance();
 
-	bool openDocument(const std::filesystem::path& path);
-	bool closeDocument(const std::wstring& name);
-	bool saveAllDocuments();
+    bool openDocument(const std::filesystem::path &path);
+    bool closeDocument(const std::wstring &name);
+    bool saveAllDocuments();
 
 private:
-	EditorViewSharedPtr _view;
-	EditorPresenterSharedPtr _presenter;
-
+    EditorViewSharedPtr _view;
+    EditorPresenterSharedPtr _presenter;
 };
